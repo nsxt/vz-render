@@ -1,0 +1,64 @@
+
+
+## Widgets #
+
+## Graphs widgets #
+
+## Layout #
+
+## Popups & Modal windows #
+
+## Columns #
+> Basic
+    Without border:
+--------------------------------
+    Item 0 Item 1 Item 2
+    Item 3 Item 4 Item 5
+    Item 6 Item 7 Item 8
+    Item 9 Item 10 Item 11
+    Item 12 Item 13
+--------------------------------
+    With border:
+--------------------------------
+    ID Name Path Flags
+--------------------------------
+    0000 One /path/one ....
+    0001 Two /path/two ....
+    0002 Three /path/three ....
+--------------------------------
+> Mixed items
+--------------------------------
+    Hello
+    Banana ImGui
+    Apple
+    1.000 - + red
+    An extra line here. Sailor
+    Corniflower
+    1.000 - + blue
+    
+    ## Category A # 
+    ## Category B # 
+    ## Category C #
+--------------------------------
+> Word-wrapping
+--------------------------------
+    The quick brown fox jumps over the lazy dog.
+    Hello Left The quick brown fox jumps over the lazy dog.
+    Hello Right
+--------------------------------
+> Borders
+    [x] horizontal [x] vertical
+--------------------------------
+    aaa bbb ccc ddd
+    eee fff ggg hhh
+--------------------------------
+> Tree within single cell (?)
+--------------------------------
+    > Hello
+        Sailor > Bonjour
+        Marin
+--------------------------------
+
+## Filtering #
+
+## Keyboard, Mouse & Focus #

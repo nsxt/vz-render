@@ -124,7 +124,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\shared\include\glad\glad.c" />
+    <ClCompile Include="..\shared\src\glad\glad.c" />
+    <ClCompile Include="..\shared\src\imgui\imgui.cpp" />
+    <ClCompile Include="..\shared\src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\shared\src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

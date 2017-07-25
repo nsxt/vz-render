@@ -1,6 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw_gl3.h>
 
 #include <iostream>
 
@@ -60,7 +62,7 @@ int run_app() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "VZ Render", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1280, 720, "VZ Render", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Failed to create window" << std::endl;
 		glfwTerminate();
@@ -75,16 +77,26 @@ int run_app() {
 		return -1;
 	}
 
+	// Setup ImGui binding
+	ImGui_ImplGlfwGL3_Init(window, true);
+
 	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+		ImGui_ImplGlfwGL3_NewFrame();
 		process_input(window);
+
+		ImGui::Begin("Test Window");
+		ImGui::Text("Hello, world!");
+		ImGui::End();
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
+		ImGui::Render();
+		glfwSwapBuffers(window);		
 	}
 	
+	ImGui_ImplGlfwGL3_Shutdown();
 	glfwTerminate();
 
 	return 0;
