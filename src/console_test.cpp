@@ -1,4 +1,5 @@
 #include "common_test.h"
+#include "file.h"
 
 void bind_console() {
 	if (!AllocConsole())
@@ -27,6 +28,8 @@ void unbind_console() {
 
 void stream_test() {
 	std::cout << "Console stream start..." << std::endl;
+	std::cout << "Current Directory : " << VzFileSystem::current_path() << std::endl;
+	std::cout << "Find file test : " << VzFileSystem::get_path("README.md") << std::endl;
 }
 
 

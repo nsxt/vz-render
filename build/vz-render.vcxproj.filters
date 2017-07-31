@@ -5,15 +5,20 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Source Files\glad">
       <UniqueIdentifier>{e65bf86a-fd36-4e5f-bcc7-355dcf5c9142}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\imgui">
       <UniqueIdentifier>{e5882fe0-3061-4cba-9047-70fc561381e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shader">
+      <UniqueIdentifier>{446afe67-ac64-4c28-9738-581dc29076db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cube">
+      <UniqueIdentifier>{5f035d3b-1170-4872-9d8b-86406aafb2d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\file">
+      <UniqueIdentifier>{2ceb7b5b-b03b-4cac-99c8-8869682bc552}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -41,10 +46,22 @@
     <ClCompile Include="..\src\console_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\cube.cpp">
+      <Filter>Source Files\cube</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\common_test.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shader.h">
+      <Filter>Source Files\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cube.h">
+      <Filter>Source Files\cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\file.h">
+      <Filter>Source Files\file</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
