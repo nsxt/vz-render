@@ -132,6 +132,7 @@
     <ClCompile Include="..\src\app_test.cpp" />
     <ClCompile Include="..\src\console_test.cpp" />
     <ClCompile Include="..\src\cube.cpp" />
+    <ClCompile Include="..\src\file.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,20 @@
     <ClInclude Include="..\src\cube.h" />
     <ClInclude Include="..\src\file.h" />
     <ClInclude Include="..\src\shader.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vz-render.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resource\shaders\default_texture.vzfs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\resource\shaders\default_texture.vzvs">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,7 +15,13 @@ public:
 	~VzCube();
 
 	void create();
-	void render();	
+	void render();
+	void destroy();
+
+private:
+	void _init_shader_obj();
+	void _init_vertex_obj();
+	void _init_texture_obj();
 
 private:
 	float* _vertices;
@@ -24,5 +30,6 @@ private:
 	GLuint _vbo;
 	GLuint _ebo;
 	GLuint _vao;
-	GLuint _texture;
+	GLuint _texture1;
+	GLuint _texture2;
 };

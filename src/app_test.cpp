@@ -1,4 +1,5 @@
 #include "common_test.h"
+#include "cube.h"
 
 int run_app() {
 	glfwInit();
@@ -28,6 +29,10 @@ int run_app() {
 	// Setup ImGui binding
 	ImGui_ImplGlfwGL3_Init(window, true);
 
+	// create cube for testing
+	VzCube cube(glm::vec3(0.f, 0.f, 0.f));
+	cube.create();
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 		ImGui_ImplGlfwGL3_NewFrame();
@@ -39,11 +44,13 @@ int run_app() {
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-
+		cube.render();
 
 		ImGui::Render();
 		glfwSwapBuffers(window);
 	}
+
+	cube.destroy();
 
 	ImGui_ImplGlfwGL3_Shutdown();
 	glfwTerminate();

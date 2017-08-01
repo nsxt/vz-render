@@ -1,67 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
+    <Filter Include="sources">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\glad">
+    <Filter Include="sources\glad">
       <UniqueIdentifier>{e65bf86a-fd36-4e5f-bcc7-355dcf5c9142}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\imgui">
+    <Filter Include="sources\imgui">
       <UniqueIdentifier>{e5882fe0-3061-4cba-9047-70fc561381e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\shader">
+    <Filter Include="sources\shader">
       <UniqueIdentifier>{446afe67-ac64-4c28-9738-581dc29076db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\cube">
+    <Filter Include="sources\cube">
       <UniqueIdentifier>{5f035d3b-1170-4872-9d8b-86406aafb2d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\file">
+    <Filter Include="sources\file">
       <UniqueIdentifier>{2ceb7b5b-b03b-4cac-99c8-8869682bc552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{c1aeea9a-4fa9-4bd6-bae6-c7a06657a38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\shaders">
+      <UniqueIdentifier>{53549394-ca1a-4b07-ac7f-f5277bd528dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\src\glad\glad.c">
-      <Filter>Source Files\glad</Filter>
+      <Filter>sources\glad</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\src\imgui\imgui.cpp">
-      <Filter>Source Files\imgui</Filter>
+      <Filter>sources\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\src\imgui\imgui_demo.cpp">
-      <Filter>Source Files\imgui</Filter>
+      <Filter>sources\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\src\imgui\imgui_draw.cpp">
-      <Filter>Source Files\imgui</Filter>
+      <Filter>sources\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp">
-      <Filter>Source Files\imgui</Filter>
+      <Filter>sources\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\app_test.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\console_test.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cube.cpp">
-      <Filter>Source Files\cube</Filter>
+      <Filter>sources\cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\file.cpp">
+      <Filter>sources\file</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\common_test.h">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
     </ClInclude>
     <ClInclude Include="..\src\shader.h">
-      <Filter>Source Files\shader</Filter>
+      <Filter>sources\shader</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cube.h">
-      <Filter>Source Files\cube</Filter>
+      <Filter>sources\cube</Filter>
     </ClInclude>
     <ClInclude Include="..\src\file.h">
-      <Filter>Source Files\file</Filter>
+      <Filter>sources\file</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="vz-render.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resource\shaders\default_texture.vzfs">
+      <Filter>resources\shaders</Filter>
+    </None>
+    <None Include="..\resource\shaders\default_texture.vzvs">
+      <Filter>resources\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
