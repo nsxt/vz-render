@@ -5,29 +5,22 @@
 
 class VzShader;
 
-class VzCube {
+class VzPlane {
 public:
-	const static float Vertices[];	
+	const static float Vertices[];
+	const static unsigned int Indices[];
 
 public:
 	glm::vec3 Position;
 	glm::vec3 Orientaion;
 
-	glm::mat4 ProjectionMatrix;
-	glm::mat4 ViewMatrix;
-	glm::mat4 ModelMatrix;
-
 public:
-	VzCube(glm::vec3 pos);
-	~VzCube();
+	VzPlane(glm::vec3 pos);
+	~VzPlane();
 
 	void create();
 	void render();
 	void destroy();
-
-	void pre_think() {}
-	void think();
-	void post_think() {}
 
 private:
 	void _init_shader_obj();
@@ -36,9 +29,9 @@ private:
 
 private:
 	VzShader* _shader;
-	GLuint _vbo;	
+	GLuint _vbo;
+	GLuint _ebo;
 	GLuint _vao;
 	GLuint _texture1;
 	GLuint _texture2;
 };
-

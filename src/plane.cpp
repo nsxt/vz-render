@@ -1,89 +1,50 @@
-#include <stb/stb_image.h>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include "cube.h"
+#include "plane.h"
 #include "shader.h"
 #include "file.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 
 #include <string>
 #include <iostream>
 
-const float VzCube::Vertices[] = {
-	// positions			// texture coords
-	-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
-	0.5f, -0.5f, -0.5f,		1.0f, 0.0f,
-	0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
-	0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
-	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
-
-	-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
-	0.5f, -0.5f,  0.5f,		1.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,		1.0f, 1.0f,
-	0.5f,  0.5f,  0.5f,		1.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,	0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
-
-	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,	1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,	1.0f, 0.0f,
-
-	0.5f,  0.5f,  0.5f,		1.0f, 0.0f,
-	0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,		0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,		0.0f, 1.0f,
-	0.5f, -0.5f,  0.5f,		0.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,		1.0f, 0.0f,
-
-	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,		1.0f, 1.0f,
-	0.5f, -0.5f,  0.5f,		1.0f, 0.0f,
-	0.5f, -0.5f,  0.5f,		1.0f, 0.0f,
-	-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f,	0.0f, 1.0f,
-
-	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,
-	0.5f,  0.5f, -0.5f,		1.0f, 1.0f,
-	0.5f,  0.5f,  0.5f,		1.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,		1.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,	0.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f
+const float VzPlane::Vertices[] = {
+	// positions         // colors          // texture coords
+	0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+	0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+	-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
 };
 
-VzCube::VzCube(glm::vec3 pos) :	Position(pos), _shader(nullptr) {
+const unsigned int VzPlane::Indices[] = {
+	0, 1, 3, // first triangle
+	1, 2, 3  // second triangle
+};
+
+VzPlane::VzPlane(glm::vec3 pos) : Position(pos), _shader(nullptr) {
 }
 
-VzCube::~VzCube() {
+VzPlane::~VzPlane() {
 }
 
-void VzCube::destroy() {
+void VzPlane::destroy() {
 	glDeleteVertexArrays(1, &_vao);
-	glDeleteBuffers(1, &_vbo);	
+	glDeleteBuffers(1, &_vbo);
+	glDeleteBuffers(1, &_ebo);
 	glDeleteTextures(1, &_texture1);
 	glDeleteTextures(1, &_texture2);
 
 	delete _shader;
 }
 
-void VzCube::create() {
+void VzPlane::create() {
 	_init_shader_obj();
 	_init_vertex_obj();
 	_init_texture_obj();
-
-	ModelMatrix = glm::translate(ModelMatrix, Position);
 }
 
-void VzCube::think() {
-
-}
-
-void VzCube::render() {
-
-	think();
-	
+void VzPlane::render() {
+	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _texture1);
 
@@ -91,17 +52,14 @@ void VzCube::render() {
 	glBindTexture(GL_TEXTURE_2D, _texture2);
 
 	_shader->use();
-	_shader->set_mat4("projection", ProjectionMatrix);
-	_shader->set_mat4("view", ViewMatrix);
-	_shader->set_mat4("model", ModelMatrix);
 
 	glBindVertexArray(_vao);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void VzCube::_init_shader_obj() {
-	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/cube.vsh");
-	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/cube.fsh");
+void VzPlane::_init_shader_obj() {
+	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/plane.vsh");
+	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/plane.fsh");
 	if (vs_file_path.empty() || fs_file_path.empty()) {
 		// TODO : Needs to process error message.
 		std::cout << "ERROR:SHADER FILE LOAD FAIL." << std::endl;
@@ -110,25 +68,33 @@ void VzCube::_init_shader_obj() {
 	_shader = new VzShader(vs_file_path.c_str(), fs_file_path.c_str());
 }
 
-void VzCube::_init_vertex_obj() {
+void VzPlane::_init_vertex_obj() {
 	glGenVertexArrays(1, &_vao);
-	glGenBuffers(1, &_vbo);	
+	glGenBuffers(1, &_vbo);
+	glGenBuffers(1, &_ebo);
 
 	glBindVertexArray(_vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+
 	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// texture coord attribute
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	// color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	// texture coord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 }
 
-void VzCube::_init_texture_obj() {
+void VzPlane::_init_texture_obj() {
 	//----------------------------------------------
 	// texture 1
 	//
@@ -148,7 +114,7 @@ void VzCube::_init_texture_obj() {
 	auto tex1_file_path = VzFileSystem::get_path("/resource/textures/container.jpg");
 	if (tex1_file_path.empty()) {
 		// TODO : Needs to process error message.
-		std::cout << "ERROR:TEXTURE FILE LOAD FAIL. : " << "/resource/textures/container.jpg" << std::endl;
+		std::cout << "ERROR:TEXTURE FILE LOAD FAIL. : " << "/resource/textures/container.jpg"  << std::endl;
 		return;
 	}
 
@@ -210,7 +176,10 @@ void VzCube::_init_texture_obj() {
 	// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
 	// don't forget to activate/use the shader before setting uniforms.
 	_shader->use();
-	_shader->set_int("texture1", 0);
+
+	// either set it manually like so:
+	glUniform1i(glGetUniformLocation(_shader->ID, "texture1"), 0);
+	// or set it via the texture class
 	_shader->set_int("texture2", 1);
 }
 

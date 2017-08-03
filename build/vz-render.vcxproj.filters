@@ -14,9 +14,6 @@
     <Filter Include="sources\shader">
       <UniqueIdentifier>{446afe67-ac64-4c28-9738-581dc29076db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\cube">
-      <UniqueIdentifier>{5f035d3b-1170-4872-9d8b-86406aafb2d7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\file">
       <UniqueIdentifier>{2ceb7b5b-b03b-4cac-99c8-8869682bc552}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,15 @@
     </Filter>
     <Filter Include="resources\shaders">
       <UniqueIdentifier>{53549394-ca1a-4b07-ac7f-f5277bd528dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\plane">
+      <UniqueIdentifier>{5f035d3b-1170-4872-9d8b-86406aafb2d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\cube">
+      <UniqueIdentifier>{4e091ef6-56ba-40b5-a13d-f5e19c0440e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\camera">
+      <UniqueIdentifier>{7befad4c-dc6d-4fb6-88eb-a8ed03635fe4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,11 +58,14 @@
     <ClCompile Include="..\src\console_test.cpp">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cube.cpp">
-      <Filter>sources\cube</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\file.cpp">
       <Filter>sources\file</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\plane.cpp">
+      <Filter>sources\plane</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cube.cpp">
+      <Filter>sources\cube</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,22 +75,32 @@
     <ClInclude Include="..\src\shader.h">
       <Filter>sources\shader</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cube.h">
-      <Filter>sources\cube</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\file.h">
       <Filter>sources\file</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\src\plane.h">
+      <Filter>sources\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cube.h">
+      <Filter>sources\cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\camera.h">
+      <Filter>sources\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="vz-render.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\resource\shaders\default_texture.vzfs">
+    <FxCompile Include="..\resource\shaders\cube.vsh">
       <Filter>resources\shaders</Filter>
-    </None>
-    <None Include="..\resource\shaders\default_texture.vzvs">
+    </FxCompile>
+    <FxCompile Include="..\resource\shaders\plane.fsh">
+      <Filter>resources\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resource\shaders\plane.vsh">
+      <Filter>resources\shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resource\shaders\cube.fsh">
       <Filter>resources\shaders</Filter>
     </None>
   </ItemGroup>
