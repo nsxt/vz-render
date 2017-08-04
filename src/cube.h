@@ -18,6 +18,7 @@ public:
 	glm::mat4 ModelMatrix;
 
 public:
+	VzCube() {}
 	VzCube(glm::vec3 pos);
 	~VzCube();
 

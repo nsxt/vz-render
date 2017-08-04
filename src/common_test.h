@@ -8,12 +8,7 @@
 
 #include <iostream>
 
-void bind_console();
-void unbind_console();
 
-void stream_test();
-void glm_test();
 
-void framebuffer_size_callback(GLFWwindow*, int, int);
-void process_input(GLFWwindow*);
-int run_app();
+
+

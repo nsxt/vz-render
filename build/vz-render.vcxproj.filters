@@ -52,12 +52,6 @@
     <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp">
       <Filter>sources\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\app_test.cpp">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\console_test.cpp">
-      <Filter>sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\file.cpp">
       <Filter>sources\file</Filter>
     </ClCompile>
@@ -67,11 +61,20 @@
     <ClCompile Include="..\src\cube.cpp">
       <Filter>sources\cube</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\console.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\application.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\global.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\common_test.h">
-      <Filter>sources</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\shader.h">
       <Filter>sources\shader</Filter>
     </ClInclude>
@@ -86,6 +89,12 @@
     </ClInclude>
     <ClInclude Include="..\src\camera.h">
       <Filter>sources\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\global.h">
+      <Filter>sources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

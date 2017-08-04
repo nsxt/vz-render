@@ -1,12 +1,7 @@
 #include <stb/stb_image.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "cube.h"
-#include "shader.h"
-#include "file.h"
-
-#include <string>
-#include <iostream>
+#include "core.h"
 
 const float VzCube::Vertices[] = {
 	// positions			// texture coords
@@ -73,11 +68,12 @@ void VzCube::create() {
 	_init_vertex_obj();
 	_init_texture_obj();
 
+	ProjectionMatrix = VzCore::Camera.get_projection_matrix();
 	ModelMatrix = glm::translate(ModelMatrix, Position);
 }
 
 void VzCube::think() {
-
+	ViewMatrix = VzCore::Camera.get_view_matrix();
 }
 
 void VzCube::render() {

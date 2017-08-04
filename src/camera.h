@@ -1,13 +1,7 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include <vector>
-
-extern GLFWwindow* g_Window;
+#include "core.h"
 
 class VzCamera {
 public:
@@ -121,7 +115,7 @@ private:
 	// Calculate the Projection marix
 	void _update_projection_matrix() {
 		int w, h;
-		glfwGetWindowSize(g_Window, &w, &h);
+		glfwGetWindowSize(VzGlobal::WindowCtx, &w, &h);
 		Projection = glm::perspective(glm::radians(Zoom), (float)w / (float)h, 0.1f, 100.0f);
 	}
 };

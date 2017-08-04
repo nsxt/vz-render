@@ -1,6 +1,12 @@
-#include "common_test.h"
-#include "file.h"
+//---------------------------------------------------
+/*
+	something title....
+*/
+//---------------------------------------------------
+#include "core.h"
 
+//////////////////////////////////////////////////////
+//
 void bind_console() {
 	if (!AllocConsole())
 		return;
@@ -21,18 +27,22 @@ void bind_console() {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED);
 }
 
+//////////////////////////////////////////////////////
+//
 void unbind_console() {
 	FreeConsole();
 }
 
-
+//////////////////////////////////////////////////////
+//
 void stream_test() {
 	std::cout << "Console stream start..." << std::endl;
 	std::cout << "Current Directory : " << VzFileSystem::current_path() << std::endl;
 	std::cout << "Find file test : " << VzFileSystem::get_path("README.md") << std::endl;
 }
 
-
+//////////////////////////////////////////////////////
+//
 void glm_test() {
 	glm::vec4 pos(10.f, 5.f, 1.f, 0.f);
 	int len = pos.length();

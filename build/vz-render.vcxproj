@@ -129,17 +129,20 @@
     <ClCompile Include="..\shared\src\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\shared\src\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp" />
-    <ClCompile Include="..\src\app_test.cpp" />
-    <ClCompile Include="..\src\console_test.cpp" />
+    <ClCompile Include="..\src\application.cpp" />
+    <ClCompile Include="..\src\console.cpp" />
+    <ClCompile Include="..\src\core.cpp" />
     <ClCompile Include="..\src\cube.cpp" />
+    <ClCompile Include="..\src\global.cpp" />
     <ClCompile Include="..\src\plane.cpp" />
     <ClCompile Include="..\src\file.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\camera.h" />
-    <ClInclude Include="..\src\common_test.h" />
+    <ClInclude Include="..\src\core.h" />
     <ClInclude Include="..\src\cube.h" />
+    <ClInclude Include="..\src\global.h" />
     <ClInclude Include="..\src\plane.h" />
     <ClInclude Include="..\src\file.h" />
     <ClInclude Include="..\src\shader.h" />

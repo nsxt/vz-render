@@ -15,6 +15,7 @@ public:
 	glm::vec3 Orientaion;
 
 public:
+	VzPlane() {};
 	VzPlane(glm::vec3 pos);
 	~VzPlane();
 
