@@ -73,6 +73,7 @@ void VzCube::create() {
 }
 
 void VzCube::think() {
+	ProjectionMatrix = VzCore::Camera.get_projection_matrix();
 	ViewMatrix = VzCore::Camera.get_view_matrix();
 }
 

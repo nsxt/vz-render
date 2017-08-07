@@ -40,6 +40,10 @@ int init_app() {
 		return -1;
 	}
 
+	glEnable(GL_DEPTH_TEST);
+
+	VzCore::Camera.initialize();
+
 	return 0;
 }
 
@@ -67,7 +71,7 @@ int run_app() {
 		ImGui::End();
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		render_dummy();
 
@@ -87,21 +91,24 @@ int run_app() {
 // glfw : whenever the mouse moves, this callback is called
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	static bool isFirstMove = true;
-	static double lastX, lastY;
+	static float lastX = (float)VzCore::Camera.ScreenWidth / 2.0f;
+	static float lastY = (float)VzCore::Camera.ScreenHeight / 2.0f;
 
 	if (isFirstMove) {
-		lastX = xpos;
-		lastY = ypos;
+		lastX = static_cast<float>(xpos);
+		lastY = static_cast<float>(ypos);
 		isFirstMove = false;
 	}
 
 	float xoffset = static_cast<float>(xpos - lastX);
 	float yoffset = static_cast<float>(lastY - ypos);
 
-	lastX = xpos;
-	lastY = ypos;
+	lastX = static_cast<float>(xpos);
+	lastY = static_cast<float>(ypos);
 
-	VzCore::Camera.process_mouse_movement(xoffset, yoffset);
+	int mouseBtn = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+	if (mouseBtn == GLFW_PRESS)
+		VzCore::Camera.process_mouse_movement(xoffset, yoffset);
 }
 
 //////////////////////////////////////////////////////

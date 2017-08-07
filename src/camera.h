@@ -21,6 +21,9 @@ public:
 	glm::vec3 WorldUp;	
 	glm::mat4 Projection;
 
+	int ScreenWidth;
+	int ScreenHeight;
+
 	// Eular Angles
 	float Yaw;
 	float Pitch;
@@ -36,10 +39,13 @@ public:
 		Target(glm::vec3(0.0f, 0.0f, -1.0f)),
 		Up(glm::vec3(0.0f, 1.0f, 0.0f)),
 		WorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
+		ScreenWidth(0), ScreenHeight(0),
+		Yaw(0.0f), Pitch(0.0f),
 		MovementSpeed(SPEED),
 		MouseSensitivity(SENSITIVITY),
-		Zoom(ZOOM) {
-		
+		Zoom(ZOOM) { }
+
+	void initialize() {
 		_update_camera_vector();
 		_update_projection_matrix();
 	}
@@ -92,6 +98,8 @@ public:
 
 		if (Zoom >= 45.0f)
 			Zoom = 45.0f;
+
+		_update_projection_matrix();
 	}
 	
 private:
@@ -114,8 +122,7 @@ private:
 
 	// Calculate the Projection marix
 	void _update_projection_matrix() {
-		int w, h;
-		glfwGetWindowSize(VzGlobal::WindowCtx, &w, &h);
-		Projection = glm::perspective(glm::radians(Zoom), (float)w / (float)h, 0.1f, 100.0f);
+		glfwGetWindowSize(VzGlobal::WindowCtx, &ScreenWidth, &ScreenHeight);
+		Projection = glm::perspective(glm::radians(Zoom), (float)ScreenWidth / (float)ScreenHeight, 0.1f, 100.0f);
 	}
 };
