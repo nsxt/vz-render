@@ -1,5 +1,13 @@
-#pragma once
+//---------------------------------------------------------
+// Copyright (C) NSXTSoft. All rights reserved.
 
+// ********************************************************
+// File name : Camera.h
+// Created   : 2017/08/09 by SungHoon Ko
+// ********************************************************
+//
+///////////////////////////////////////////////////////////
+#pragma once
 #include <glm/gtc/matrix_transform.hpp>
 #include "core.h"
 

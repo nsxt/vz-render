@@ -42,6 +42,7 @@ int init_app() {
 
 	glEnable(GL_DEPTH_TEST);
 
+	VzCore::Timer.initialize();
 	VzCore::Camera.initialize();
 
 	return 0;
@@ -58,25 +59,35 @@ int run_app() {
 	init_dummy();
 
 	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
-		float currentFrame = static_cast<float>(glfwGetTime());
-		VzCore::DeltaTime = currentFrame - VzCore::LastFrame;
-		VzCore::LastFrame = currentFrame;
-
 		glfwPollEvents();
-		
-		ImGui_ImplGlfwGL3_NewFrame();
-		process_input(VzGlobal::WindowCtx);
 
-		ImGui::Begin("VZ-Render Property");
-		ImGui::End();
+		VzCore::Timer.update();
 
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				
+		VzCore::DeltaTime += VzCore::Timer.time_difference();
+		if (VzCore::DeltaTime >= 1.0f / 60.f) {
+			VzCore::Timer.update_frame_count();
+			process_input(VzGlobal::WindowCtx);
 
-		render_dummy();
+			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			
+			render_dummy();
 
-		ImGui::Render();
-		glfwSwapBuffers(VzGlobal::WindowCtx);
+			ImGui_ImplGlfwGL3_NewFrame();
+			ImGui::Begin("VZ-Render Property");
+			ImGui::End();
+			ImGui::Render();
+
+			glfwSwapBuffers(VzGlobal::WindowCtx);
+
+			VzCore::DeltaTime = 0.0f;
+
+			//char tmp[128];
+			//sprintf(tmp, "VZ-Render OpenGL @ fps: %.2f", VzCore::Timer.fps());
+			//glfwSetWindowTitle(VzGlobal::WindowCtx, tmp);
+		}
+
 	}
 
 	destroy_dummy();

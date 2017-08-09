@@ -32,6 +32,9 @@
     <Filter Include="sources\camera">
       <UniqueIdentifier>{7befad4c-dc6d-4fb6-88eb-a8ed03635fe4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\timer">
+      <UniqueIdentifier>{f547409c-3bda-4ecc-8673-f22d8c2bd49c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -95,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="..\src\global.h">
       <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\timer.h">
+      <Filter>sources\timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

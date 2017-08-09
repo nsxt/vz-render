@@ -9,6 +9,8 @@
 //////////////////////////////////////////////////////
 #pragma once
 
+#define NOMINMAX
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -16,10 +18,13 @@
 #include <imgui/imgui_impl_glfw_gl3.h>
 
 #include <iostream>
+#include <algorithm>
 #include <string>
 #include <vector>
+#include <chrono>
 
 #include "global.h"
+#include "timer.h"
 #include "file.h"
 #include "shader.h"
 #include "camera.h"
@@ -68,6 +73,7 @@ void glm_test();
 
 class VzCore {
 public:
+	static VzTimer Timer;
 	static VzCamera Camera;
 	static VzPlane Plane;
 	static VzCube Cube;	
