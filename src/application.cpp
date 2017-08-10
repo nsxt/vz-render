@@ -43,6 +43,8 @@ int init_app() {
 	glEnable(GL_DEPTH_TEST);
 
 	VzCore::Timer.initialize();
+	VzCore::Timer.set_fps(60.0f);
+
 	VzCore::Camera.initialize();
 
 	return 0;
@@ -55,7 +57,7 @@ int run_app() {
 		return -1;
 	
 	ImGui_ImplGlfwGL3_Init(VzGlobal::WindowCtx, true);
-	
+
 	init_dummy();
 
 	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
@@ -63,11 +65,13 @@ int run_app() {
 
 		VzCore::Timer.update();
 
+		process_input(VzGlobal::WindowCtx);
 				
-		VzCore::DeltaTime += VzCore::Timer.time_difference();
-		if (VzCore::DeltaTime >= 1.0f / 60.f) {
+		if (VzCore::Timer.is_delta_arrival()) {
+			VzCore::Timer.reset_delta();
+
 			VzCore::Timer.update_frame_count();
-			process_input(VzGlobal::WindowCtx);
+			VzCore::Timer.calc_fps();			
 
 			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -80,12 +84,10 @@ int run_app() {
 			ImGui::Render();
 
 			glfwSwapBuffers(VzGlobal::WindowCtx);
-
-			VzCore::DeltaTime = 0.0f;
-
-			//char tmp[128];
-			//sprintf(tmp, "VZ-Render OpenGL @ fps: %.2f", VzCore::Timer.fps());
-			//glfwSetWindowTitle(VzGlobal::WindowCtx, tmp);
+						
+			char tmp[128];
+			sprintf(tmp, "VZ-Render OpenGL @ fps: %.2f", VzCore::Timer.current_fps());
+			glfwSetWindowTitle(VzGlobal::WindowCtx, tmp);
 		}
 
 	}
@@ -142,16 +144,16 @@ void process_input(GLFWwindow* window) {
 		glfwSetWindowShouldClose(window, true);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		VzCore::Camera.process_keyboard(VzCamera::FORWARD, VzCore::DeltaTime);
+		VzCore::Camera.process_keyboard(VzCamera::FORWARD, VzCore::Timer.time_difference());
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		VzCore::Camera.process_keyboard(VzCamera::BACKWARD, VzCore::DeltaTime);
+		VzCore::Camera.process_keyboard(VzCamera::BACKWARD, VzCore::Timer.time_difference());
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		VzCore::Camera.process_keyboard(VzCamera::LEFT, VzCore::DeltaTime);
+		VzCore::Camera.process_keyboard(VzCamera::LEFT, VzCore::Timer.time_difference());
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		VzCore::Camera.process_keyboard(VzCamera::RIGHT, VzCore::DeltaTime);
+		VzCore::Camera.process_keyboard(VzCamera::RIGHT, VzCore::Timer.time_difference());
 }
 
 //////////////////////////////////////////////////////

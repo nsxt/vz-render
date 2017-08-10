@@ -77,6 +77,4 @@ public:
 	static VzCamera Camera;
 	static VzPlane Plane;
 	static VzCube Cube;	
-	static float DeltaTime;
-	static float LastFrame;
 };

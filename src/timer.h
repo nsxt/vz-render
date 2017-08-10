@@ -19,33 +19,51 @@ class VzTimer {
 	}
 
 public:
-	VzTimer() : _delta_time{ 0.0f }, _elapsed_time { 0.f }, _time_diff{ 0.f }, _fps{ 0.f }, _frame_count{ 1 } {}
+	VzTimer() :
+		_elapsed_time{ 0.0f }, _delta_time{ 0.f }, _time_diff{ 0.f },
+		_target_fps{ 0.f }, _current_fps{ 0.0f }, _alpha_time{ 0.0f }, _frame_count { 1 } {}
+
 	~VzTimer() {}
 
 	void initialize() {
 		_previous_time = clock::now();
 	}
 
-	inline void update(float interval = 1.0f) {
+	inline void update() {
 		_current_time = clock::now();
 		_time_diff = clamp<float>((float)(duration(_current_time - _previous_time).count() / 1000.f), 0.f, 1.f);
-		_elapsed_time += _time_diff;
-		_delta_time += _time_diff;
+		_elapsed_time += _time_diff;		
 		_previous_time = _current_time;
+		_delta_time += _time_diff;
+		_alpha_time += _time_diff;
+	}
 
-		if (_delta_time > interval) {
-			_fps = (float)_frame_count / _delta_time;
+	inline void calc_fps(float interval = 1.0f) {
+		if (_alpha_time > interval) {
+			_current_fps = (float)_frame_count / _alpha_time;
 			_frame_count = 0;
-			_delta_time = 0.0f;
+			_alpha_time = 0.0f;
 		}
+	}
+
+	inline bool is_delta_arrival() const {
+		return (_delta_time >= 1.0f / _target_fps);
+	}
+
+	inline void reset_delta() {
+		_delta_time = 0.0f;
+	}
+
+	inline void set_fps(float fps) {
+		_target_fps = fps;
 	}
 
 	inline void update_frame_count() {
 		_frame_count++;
 	}
 
-	inline float fps() const {
-		return _fps;
+	inline float current_fps() const {
+		return _current_fps;
 	}
 
 	inline float current_time() const {	
@@ -66,8 +84,10 @@ private:
 	clock::time_point _previous_time;
 
 	float _elapsed_time;
-	float _delta_time;
+	float _delta_time;	
 	float _time_diff;
-	float _fps;
+	float _target_fps;
+	float _current_fps;
+	float _alpha_time;
 	int _frame_count;
 };
