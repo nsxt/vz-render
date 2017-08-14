@@ -58,6 +58,11 @@ public:
 		_update_projection_matrix();
 	}
 
+	void get_screen_size(int& width, int& height) {
+		width = ScreenWidth;
+		height = ScreenHeight;
+	}
+
 	glm::mat4 get_view_matrix() {
 		return glm::lookAt(Position, Position + Target, Up);
 	}

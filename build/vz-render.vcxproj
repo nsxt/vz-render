@@ -133,6 +133,7 @@
     <ClCompile Include="..\src\console.cpp" />
     <ClCompile Include="..\src\core.cpp" />
     <ClCompile Include="..\src\cube.cpp" />
+    <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\global.cpp" />
     <ClCompile Include="..\src\plane.cpp" />
     <ClCompile Include="..\src\file.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="..\src\camera.h" />
     <ClInclude Include="..\src\core.h" />
     <ClInclude Include="..\src\cube.h" />
+    <ClInclude Include="..\src\font.h" />
     <ClInclude Include="..\src\global.h" />
     <ClInclude Include="..\src\plane.h" />
     <ClInclude Include="..\src\file.h" />
@@ -149,23 +151,40 @@
     <ClInclude Include="..\src\timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\resource\shaders\cube.fsh">
+    <FxCompile Include="..\resource\shaders\font.vert">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <None Include="..\resource\shaders\cube.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </DeploymentContent>
+    </None>
+    <FxCompile Include="..\resource\shaders\plane.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </FxCompile>
+    <FxCompile Include="..\resource\shaders\plane.vert">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </FxCompile>
+    <None Include="..\resource\shaders\font.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </None>
-    <FxCompile Include="..\resource\shaders\plane.fsh">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-    </FxCompile>
-    <FxCompile Include="..\resource\shaders\plane.vsh">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <FileType>Document</FileType>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\resource\shaders\cube.vsh">
+    <FxCompile Include="..\resource\shaders\cube.vert">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </FxCompile>

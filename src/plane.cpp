@@ -58,8 +58,8 @@ void VzPlane::render() {
 }
 
 void VzPlane::_init_shader_obj() {
-	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/plane.vsh");
-	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/plane.fsh");
+	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/plane.vert");
+	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/plane.frag");
 	if (vs_file_path.empty() || fs_file_path.empty()) {
 		// TODO : Needs to process error message.
 		std::cout << "ERROR:SHADER FILE LOAD FAIL." << std::endl;

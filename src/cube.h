@@ -1,10 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-
-class VzShader;
-
 class VzCube {
 public:
 	const static float Vertices[];	

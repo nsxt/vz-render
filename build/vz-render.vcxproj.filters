@@ -35,6 +35,9 @@
     <Filter Include="sources\timer">
       <UniqueIdentifier>{f547409c-3bda-4ecc-8673-f22d8c2bd49c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\font">
+      <UniqueIdentifier>{52ea8204-ac71-4960-8295-0f4282d92700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -76,6 +79,9 @@
     <ClCompile Include="..\src\global.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\font.cpp">
+      <Filter>sources\font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -102,20 +108,29 @@
     <ClInclude Include="..\src\timer.h">
       <Filter>sources\timer</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\font.h">
+      <Filter>sources\font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\resource\shaders\cube.vsh">
+    <FxCompile Include="..\resource\shaders\cube.vert">
       <Filter>resources\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\resource\shaders\plane.fsh">
+    <FxCompile Include="..\resource\shaders\plane.frag">
       <Filter>resources\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\resource\shaders\plane.vsh">
+    <FxCompile Include="..\resource\shaders\plane.vert">
+      <Filter>resources\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\resource\shaders\font.vert">
       <Filter>resources\shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\resource\shaders\cube.fsh">
+    <None Include="..\resource\shaders\cube.frag">
+      <Filter>resources\shaders</Filter>
+    </None>
+    <None Include="..\resource\shaders\font.frag">
       <Filter>resources\shaders</Filter>
     </None>
   </ItemGroup>

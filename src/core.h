@@ -1,12 +1,12 @@
-//////////////////////////////////////////////////////
-//----------------------------------------------------
-/*
+//---------------------------------------------------------
+// Copyright (C) NSXTSoft. All rights reserved.
 
-	something title....
-
-*/
-//----------------------------------------------------
-//////////////////////////////////////////////////////
+// ********************************************************
+// File name : Core.h
+// Created   : 2017/08/09 by SungHoon Ko
+// ********************************************************
+//
+///////////////////////////////////////////////////////////
 #pragma once
 
 #define NOMINMAX
@@ -22,12 +22,15 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include <map>
 
 #include "global.h"
 #include "timer.h"
 #include "file.h"
 #include "shader.h"
 #include "camera.h"
+
+#include "font.h"
 #include "plane.h"
 #include "cube.h"
 

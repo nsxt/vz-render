@@ -1,7 +1,6 @@
+#include "core.h"
 #include <stb/stb_image.h>
 #include <glm/gtc/matrix_transform.hpp>
-
-#include "core.h"
 
 const float VzCube::Vertices[] = {
 	// positions			// texture coords
@@ -97,8 +96,8 @@ void VzCube::render() {
 }
 
 void VzCube::_init_shader_obj() {
-	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/cube.vsh");
-	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/cube.fsh");
+	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/cube.vert");
+	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/cube.frag");
 	if (vs_file_path.empty() || fs_file_path.empty()) {
 		// TODO : Needs to process error message.
 		std::cout << "ERROR:SHADER FILE LOAD FAIL." << std::endl;
