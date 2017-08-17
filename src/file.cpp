@@ -21,7 +21,7 @@ namespace VzFileSystem {
 			return parent_depth.generic_string();
 		}
 
-		return{};
+		return {};
 	}
 
 }
