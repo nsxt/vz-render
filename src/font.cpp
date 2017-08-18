@@ -23,7 +23,7 @@ VzFont::VzFont()
 VzFont::~VzFont() {
 }
 
-void VzFont::initialize() {
+void VzFont::initialize() noexcept {
 	_init_shader_obj();
 	_init_vertex_obj();
 
@@ -33,9 +33,23 @@ void VzFont::initialize() {
 
 	_shader->use();
 	_shader->set_mat4("Projection", _projection_matrix);
+
+	_precache_ascii_charmap();
 }
 
-void VzFont::precache_ascii_charmap() {	
+void VzFont::deinitialize() noexcept {
+	for (auto i : _char_map) {
+		auto cur = i.second;
+		glDeleteTextures(1, &cur.texture_id);
+	}
+	_char_map.clear();
+
+	glDeleteVertexArrays(1, &_vao);
+	glDeleteBuffers(1, &_vbo);
+	delete _shader;
+}
+
+void VzFont::_precache_ascii_charmap() {
 	// All function return a value different than 0 thenever an error occurred
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft))
@@ -48,7 +62,7 @@ void VzFont::precache_ascii_charmap() {
 		std::cout << "EROOR::FREETYPE: Failed to load font" << std::endl;
 
 	// Set size to load glyphs as
-	FT_Set_Pixel_Sizes(face, 0, 48);
+	FT_Set_Pixel_Sizes(face, 0, 24);
 
 	// Disable byte-alignment restriction
 	GLint last_pixel_unpack_alignment;
@@ -99,28 +113,81 @@ void VzFont::precache_ascii_charmap() {
 	FT_Done_FreeType(ft);
 }
 
-void VzFont::render_text() {
+void VzFont::render_text(const std::string& text, const glm::vec2& pos, const glm::vec4& color = VzCore::Color.Navy, GLfloat scale = 1.0f) noexcept {
 	GLint last_blend_src_alpha; glGetIntegerv(GL_BLEND_SRC_ALPHA, &last_blend_src_alpha);
 	GLboolean last_enable_cull_face = glIsEnabled(GL_CULL_FACE);
 	GLboolean last_enable_blend = glIsEnabled(GL_BLEND);
 	GLboolean last_enable_depth_test = glIsEnabled(GL_DEPTH_TEST);
 	GLboolean last_enable_scissor_test = glIsEnabled(GL_SCISSOR_TEST);
+	//---------------------------------------------------------
+	
+	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_DEPTH_TEST);
 
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	// Avtivate corresponding render state
+	_shader->use();
+	_shader->set_vec3("TextColor", color);
 
+	glActiveTexture(GL_TEXTURE0);
+	glBindVertexArray(_vao);
 
+	GLfloat x = pos.x;
+	GLfloat y = pos.y;
 
+	// Iterate through all characters	
+	for (auto it = text.cbegin(); it != text.cend(); it++) {
+		auto ch = _char_map[*it];
+		
+		GLfloat xpos = x + ch.bearing.x * scale;
+		GLfloat ypos = y - (ch.size.y - ch.bearing.y) * scale;
+
+		GLfloat w = ch.size.x * scale;
+		GLfloat h = ch.size.y * scale;
+
+		// Update VBO for each character
+		GLfloat vertices[6][4] = {
+			{ xpos,		ypos + h,	0.0f, 0.0f },
+			{ xpos,		ypos,		0.0f, 1.0f },
+			{ xpos + w, ypos,		1.0f, 1.0f },
+
+			{ xpos,		ypos + h,	0.0f, 0.0f },
+			{ xpos + w, ypos,		1.0f, 1.0f },
+			{ xpos + w, ypos + h,	1.0f, 0.0f }
+		};
+
+		// Render glyph texture over quad
+		glBindTexture(GL_TEXTURE_2D, ch.texture_id);
+
+		// Update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+		// Unbind buffer
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		// Render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+		// Bitshift by 6 to get value in pixels 
+		// (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+		x += (ch.advance >> 6) * scale;
+	}
+
+	// Unbind vertex array object and texture
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	//---------------------------------------------------------
 	glBlendFunc(GL_SRC_ALPHA, last_blend_src_alpha);
 	if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
 	if (last_enable_cull_face) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
 	if (last_enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
 	if (last_enable_scissor_test) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
-}
-
-void VzFont::deinitialize() {
-	glDeleteVertexArrays(1, &_vao);
-	glDeleteBuffers(1, &_vbo);
-	delete _shader;
 }
 
 void VzFont::_init_shader_obj() {
@@ -149,7 +216,3 @@ void VzFont::_init_vertex_obj() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-
-void VzFont::_init_texture_obj() {
-}
-

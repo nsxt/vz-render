@@ -8,7 +8,7 @@
 //----------------------------------------------------
 //////////////////////////////////////////////////////
 #include "core.h"
-
+#include <iomanip>
 
 //////////////////////////////////////////////////////
 //
@@ -35,6 +35,8 @@ int init_app() {
 	glfwSetCursorPosCallback(VzGlobal::WindowCtx, mouse_callback);
 	glfwSetScrollCallback(VzGlobal::WindowCtx, scroll_callback);
 
+	glfwSetWindowTitle(VzGlobal::WindowCtx, "VZ-Render alpha version");
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
@@ -46,6 +48,10 @@ int init_app() {
 	VzCore::Timer.set_fps(60.0f);
 
 	VzCore::Camera.initialize();
+	
+	VzCore::Font.initialize();
+	
+	print_vendor_info();
 
 	return 0;
 }
@@ -59,6 +65,9 @@ int run_app() {
 	ImGui_ImplGlfwGL3_Init(VzGlobal::WindowCtx, true);
 
 	init_dummy();
+
+	std::ostringstream fps_oss;	
+	fps_oss << "FPS: ";	
 
 	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
 		glfwPollEvents();
@@ -83,18 +92,20 @@ int run_app() {
 			ImGui::End();
 			ImGui::Render();
 
+			fps_oss.seekp(4);
+			fps_oss << std::setw(6) << std::left << VzCore::Timer.current_fps();
+			fps_oss.seekp(0, std::ios_base::end);
+			VzCore::Font.render_text(fps_oss.str(), glm::vec2(0.0f, 0.0f), VzCore::Color.YellowGreen, 1.0f);
+
 			glfwSwapBuffers(VzGlobal::WindowCtx);
-						
-			char tmp[128];
-			sprintf(tmp, "VZ-Render OpenGL @ fps: %.2f", VzCore::Timer.current_fps());
-			glfwSetWindowTitle(VzGlobal::WindowCtx, tmp);
 		}
 
 	}
 
+	VzCore::Font.deinitialize();
 	destroy_dummy();
-
 	ImGui_ImplGlfwGL3_Shutdown();
+	
 	glfwTerminate();
 
 	return 0;

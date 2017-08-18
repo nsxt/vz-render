@@ -38,6 +38,9 @@
     <Filter Include="sources\font">
       <UniqueIdentifier>{52ea8204-ac71-4960-8295-0f4282d92700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\color">
+      <UniqueIdentifier>{9effc825-df45-4202-9bc6-ed435a4f8d9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -82,6 +85,9 @@
     <ClCompile Include="..\src\font.cpp">
       <Filter>sources\font</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\color.cpp">
+      <Filter>sources\color</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -110,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="..\src\font.h">
       <Filter>sources\font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\color.h">
+      <Filter>sources\color</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

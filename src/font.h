@@ -15,22 +15,21 @@ public:
 	~VzFont();
 
 public:
-	void initialize();
-	void precache_ascii_charmap();
-	void render_text();
-	void deinitialize();
+	void initialize() noexcept;
+	void render_text(const std::string& text, const glm::vec2& pos, const glm::vec4& color, GLfloat scale) noexcept;
+	void deinitialize() noexcept;
 
 private:
 	void _init_shader_obj();
-	void _init_vertex_obj();
-	void _init_texture_obj();
+	void _init_vertex_obj();	
+	void _precache_ascii_charmap();
 
 private:
 	struct _CharacterInfo {
 		GLuint texture_id;
 		glm::ivec2 size;
 		glm::ivec2 bearing;
-		GLuint advance;
+		long advance;
 	};
 
 	std::map<GLchar, _CharacterInfo> _char_map;

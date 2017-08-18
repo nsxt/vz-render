@@ -51,3 +51,14 @@ void glm_test() {
 	std::cout << "pos : " << pos.x << "," << pos.y << "," << pos.z << "," << pos.w << std::endl;
 	std::cout << "len : " << len << std::endl;
 }
+
+void print_vendor_info() {
+	std::cout << std::endl;
+	std::cout << "Start VZ-Render....\n" << std::endl;
+
+	fprintf(stderr, "VENDOR: %s\n", (char *)glGetString(GL_VENDOR));
+	fprintf(stderr, "VERSION: %s\n", (char *)glGetString(GL_VERSION));
+	fprintf(stderr, "RENDERER: %s\n", (char *)glGetString(GL_RENDERER));
+
+	std::cout << std::endl;
+}

@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3_d.lib;freetype28_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_64_0\stage\lib;$(SolutionDir)shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -104,7 +104,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype28.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files\boost\boost_1_64_0\stage\lib;$(SolutionDir)shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
@@ -130,6 +130,7 @@
     <ClCompile Include="..\shared\src\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="..\src\application.cpp" />
+    <ClCompile Include="..\src\color.cpp" />
     <ClCompile Include="..\src\console.cpp" />
     <ClCompile Include="..\src\core.cpp" />
     <ClCompile Include="..\src\cube.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\camera.h" />
+    <ClInclude Include="..\src\color.h" />
     <ClInclude Include="..\src\core.h" />
     <ClInclude Include="..\src\cube.h" />
     <ClInclude Include="..\src\font.h" />

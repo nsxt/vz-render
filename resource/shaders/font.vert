@@ -6,6 +6,6 @@ uniform mat4 Projection;
 
 void main()
 {
-	gl_position = Projection * vec4(PosTex.xy, 0.0, 1.0);
+	gl_Position = Projection * vec4(PosTex.xy, 0.0, 1.0);
 	TexCoords = PosTex.zw;
 }
