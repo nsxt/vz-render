@@ -41,6 +41,9 @@
     <Filter Include="sources\color">
       <UniqueIdentifier>{9effc825-df45-4202-9bc6-ed435a4f8d9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\transvoxel">
+      <UniqueIdentifier>{f566e075-1e68-478f-949e-f9b9879e8727}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -88,6 +91,9 @@
     <ClCompile Include="..\src\color.cpp">
       <Filter>sources\color</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\transvoxel.cpp">
+      <Filter>sources\transvoxel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -119,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="..\src\color.h">
       <Filter>sources\color</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\transvoxel.h">
+      <Filter>sources\transvoxel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,7 @@
 #include "plane.h"
 #include "cube.h"
 
+#include "transvoxel.h"
 
 //////////////////////////////////////////////////////
 //
