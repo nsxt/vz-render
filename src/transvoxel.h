@@ -52,7 +52,7 @@ public:
 	// modified Marching Cubes algorithm, a couple of them use the same exact triangulations,
 	// just with different vertex locations. We combined those classes for this table so
 	// that the class index ranges from 0 to 15.
-	static const unsigned char regularCellClass[256];
+	static const unsigned char regularCellClass[256];	
 
 	// The regularCellData table holds the triangulation data for all 16 distinct classes to
 	// which a case can be mapped by the regularCellClass table.
