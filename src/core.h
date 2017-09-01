@@ -35,7 +35,7 @@
 #include "plane.h"
 #include "cube.h"
 
-#include "transvoxel_const.h"
+#include "voxel_regular_table.h"
 #include "voxel.h"
 
 //////////////////////////////////////////////////////

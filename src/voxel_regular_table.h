@@ -2,7 +2,7 @@
 // Copyright (C) NSXTSoft. All rights reserved.
 
 // ********************************************************
-// File name : transvoxel_const.h
+// File name : voxel_regular_table.h
 // Created   : 2017/08/21 by SungHoon Ko
 // ********************************************************
 //
@@ -12,7 +12,7 @@
 ///////////////////////////////////////////////////////////
 #pragma once
 
-class VzTransvoxelConst {
+class VzVoxelRegularTable {
 public:
 	// The RegularCellData structure holds information about the triangulation
 	// used for a single equivalence class in the modified Marching Cubes algorithm,
