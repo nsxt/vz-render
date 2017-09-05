@@ -91,10 +91,10 @@
     <ClCompile Include="..\src\color.cpp">
       <Filter>sources\color</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\transvoxel_const.cpp">
+    <ClCompile Include="..\src\voxel.cpp">
       <Filter>sources\transvoxel</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\voxel.cpp">
+    <ClCompile Include="..\src\voxel_regular_table.cpp">
       <Filter>sources\transvoxel</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,7 +132,7 @@
     <ClInclude Include="..\src\voxel.h">
       <Filter>sources\transvoxel</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\transvoxel_const.h">
+    <ClInclude Include="..\src\voxel_regular_table.h">
       <Filter>sources\transvoxel</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,6 +6,7 @@
 // Created   : 2017/08/21 by SungHoon Ko
 // ********************************************************
 //
+
 // The following data originates from Eric Lengyel's Transvoxel Algorithm.
 // http://transvoxel.org/
 //
