@@ -33,7 +33,7 @@ public:
 
 	template<unsigned Size>
 	struct GenericReuseVertexInfo {
-		ReuseVertexInfo() { 
+		GenericReuseVertexInfo() {
 			reset(); 
 		}
 
@@ -55,6 +55,7 @@ public:
 			, Pos(rhs.Pos)
 			, Density(std::move(rhs.Density))
 			, Vertices(std::move(rhs.Vertices))
+			, Indices(std::move(rhs.Indices))
 			, ReuseVertices(std::move(rhs.ReuseVertices)) {}
 
 		unsigned ID;
@@ -62,6 +63,7 @@ public:
 		glm::vec3 Pos;
 		std::vector<char> Density;
 		std::vector<glm::vec4> Vertices;
+		std::vector<unsigned> Indices;
 
 		typedef GenericReuseVertexInfo<4> ReuseVertexInfo;
 		std::unordered_map<unsigned, ReuseVertexInfo> ReuseVertices;
@@ -87,7 +89,7 @@ public:
 
 	Cell make_cell(const Block& block, const glm::vec3& localPos);
 
-	glm::vec3 get_pos_corner(int cornerId, const glm::vec3& cellPos);
+	glm::vec3 get_pos_corner(int cornerId, const glm::vec3& basePos);
 
 	char get_density(const glm::vec3& cornerPos, const Block& block);
 	
@@ -98,6 +100,8 @@ public:
 	glm::vec3 get_pos_adjcell(const char direction, const glm::vec3& cellPos);
 
 	unsigned make_id_reuse_vertex(const glm::vec3& reusePos);
+
+	unsigned generate_vertex_from_point(Block& block, const Cell& cell, char cornerId);
 	
 private:
 	std::vector<Block> _blocks;

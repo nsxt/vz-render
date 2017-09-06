@@ -25,6 +25,8 @@
 #include <map>
 #include <unordered_map>
 
+#include <boost/assert.hpp>
+
 #include "global.h"
 #include "timer.h"
 #include "file.h"
