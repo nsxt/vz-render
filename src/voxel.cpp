@@ -308,7 +308,7 @@ unsigned VzVoxel::make_id_reuse_vertex(const glm::vec3 & reusePos) {
 unsigned VzVoxel::generate_vertex_from_point(Block& block, const Cell& cell, char cornerId) {
 	auto V = get_pos_corner(cornerId, cell.Pos);
 
-	// todo : calculate normal and process material info.	
+	// todo : calculate normal and process material info.
 	V *= 256.0f;
 	block.Vertices.push_back(glm::vec4(V, 0.0f));
 

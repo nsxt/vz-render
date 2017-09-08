@@ -24,6 +24,7 @@
 #include <chrono>
 #include <map>
 #include <unordered_map>
+#include <memory>
 
 #include <boost/assert.hpp>
 
@@ -40,6 +41,7 @@
 
 #include "voxel_regular_table.h"
 #include "voxel.h"
+#include "voxel_block_entity.h"
 
 //////////////////////////////////////////////////////
 //
