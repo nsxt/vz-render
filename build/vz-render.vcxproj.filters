@@ -97,6 +97,9 @@
     <ClCompile Include="..\src\voxel_regular_table.cpp">
       <Filter>sources\transvoxel</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\voxel_block_entity.cpp">
+      <Filter>sources\transvoxel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -133,6 +136,9 @@
       <Filter>sources\transvoxel</Filter>
     </ClInclude>
     <ClInclude Include="..\src\voxel_regular_table.h">
+      <Filter>sources\transvoxel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\voxel_block_entity.h">
       <Filter>sources\transvoxel</Filter>
     </ClInclude>
   </ItemGroup>

@@ -139,6 +139,7 @@
     <ClCompile Include="..\src\plane.cpp" />
     <ClCompile Include="..\src\file.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\voxel_block_entity.cpp" />
     <ClCompile Include="..\src\voxel_regular_table.cpp" />
     <ClCompile Include="..\src\voxel.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="..\src\file.h" />
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\timer.h" />
+    <ClInclude Include="..\src\voxel_block_entity.h" />
     <ClInclude Include="..\src\voxel_regular_table.h" />
     <ClInclude Include="..\src\voxel.h" />
   </ItemGroup>
