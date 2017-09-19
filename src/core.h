@@ -91,4 +91,5 @@ public:
 	static VzColor Color;
 	static VzPlane Plane;
 	static VzCube Cube;	
+	static VzVoxelBlockEntity VoxelBlockEntity;
 };

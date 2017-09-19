@@ -8,6 +8,7 @@
 //
 ///////////////////////////////////////////////////////////
 #include "core.h"
+#include <glm/gtc/type_ptr.hpp>
 
 VzVoxel::VzVoxel() {
 }
@@ -16,6 +17,8 @@ VzVoxel::~VzVoxel() {
 }
 
 void VzVoxel::initialize() noexcept {
+	create_grid();
+	polygonize_block();
 }
 
 void VzVoxel::deinitialize() noexcept {
@@ -23,7 +26,7 @@ void VzVoxel::deinitialize() noexcept {
 
 float VzVoxel::get_isovalue_sphere(int x, int y, int z) {
 	float volume_size = static_cast<float>(BLOCK_EXTENT);
-	float sphere_radius = 10.0f;
+	float sphere_radius = 7.0f;
 	return pow(x - volume_size / 2, 2) + pow(y - volume_size / 2, 2) + pow(z - volume_size / 2, 2) - pow(sphere_radius, 2);
 }
 
@@ -33,7 +36,7 @@ void VzVoxel::create_block(const int& blockId) {
 	Block block;
 	block.ID = blockId;
 	block.Flags = BlockFlags::VZ_BF_OK;
-	block.Pos = glm::vec3();
+	block.Coords = glm::vec3();
 	block.Density.resize(block_size);
 	block.Density.clear();
 
@@ -41,8 +44,15 @@ void VzVoxel::create_block(const int& blockId) {
 		for (unsigned y = 0u; y < BLOCK_EXTENT; ++y)
 			for (unsigned x = 0u; x < BLOCK_EXTENT; ++x) {
 				unsigned index = x + (y * BLOCK_EXTENT) + (z * BLOCK_EXTENT * BLOCK_EXTENT);
-				block.Density[index] = get_isovalue_sphere(x, y, z) > 0 ? 0 : 0xFF;
+				//char isovalue = get_isovalue_sphere(x, y, z) > 0 ? 0 : 0xFF;
+				char isovalue = 0;
+				block.Density.push_back(isovalue);
 			}
+
+	unsigned center = (BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT*BLOCK_EXTENT / 2);	
+	block.Density[0] = -128;
+	block.Density[1] = -128;
+	block.Density[BLOCK_EXTENT*BLOCK_EXTENT + 1] = -128;
 
 	_blocks.push_back(std::move(block));
 }
@@ -151,7 +161,11 @@ void VzVoxel::polygonize_block() {
 							}
 						}
 						else {
-							BOOST_ASSERT_MSG(0, "No data to reuse vertex in block.");
+							//BOOST_ASSERT_MSG(0, "No data to reuse vertex in block.");
+
+							// we allow the creation of a vertex here (it's the lower endpoint of an edge)
+							auto index = generate_vertex_from_point(block, cell, V0);
+							determineVertIndices[curRegVertCount] = index;
 						}
 
 						shouldCreateNewVertex = false;
@@ -165,19 +179,19 @@ void VzVoxel::polygonize_block() {
 
 							if (t == 0 && V1 == 7) {
 								Block::ReuseVertexInfo reuseInfo;
-								reuseInfo.VertexIndices[vertIndexInCell] = index;	
-								auto reuseId = make_id_reuse_vertex(cell.LocalPos);
+								reuseInfo.VertexIndices[vertIndexInCell] = index;
+								auto reuseId = make_id_reuse_vertex(cell.LocalBase);
 
 								block.ReuseVertices.emplace(std::make_pair(reuseId, std::move(reuseInfo)));
-
-								// save this index for the triangulation
-								determineVertIndices[curRegVertCount] = index;
 							}
+
+							// save this index for the triangulation
+							determineVertIndices[curRegVertCount] = index;							
 						}
 						// vertex lies in the interior of the edge.
 						else {
-							auto P0 = get_pos_corner(V0, cell.Pos);
-							auto P1 = get_pos_corner(V1, cell.Pos);
+							auto P0 = get_world_corner_pos(V0, cell);
+							auto P1 = get_world_corner_pos(V1, cell);
 
 							const long u = 0x0100 - t;
 							glm::vec4 Q = glm::vec4((float)t * P0 + (float)u * P1, 0.0f);
@@ -189,7 +203,7 @@ void VzVoxel::polygonize_block() {
 							if (direction == 0x8) {
 								Block::ReuseVertexInfo reuseInfo;
 								reuseInfo.VertexIndices[vertIndexInCell] = index;
-								auto reuseId = make_id_reuse_vertex(cell.LocalPos);
+								auto reuseId = make_id_reuse_vertex(cell.LocalBase);
 								block.ReuseVertices.emplace(std::make_pair(reuseId, std::move(reuseInfo)));
 							}
 
@@ -197,15 +211,15 @@ void VzVoxel::polygonize_block() {
 							determineVertIndices[curRegVertCount] = index;
 						}
 					}
+				}
 
-					// push all triangles
-					auto triMaxCount = regCellData.get_triangle_count() * 3;
-					for (auto triCount = 0L; triCount < triMaxCount; triCount += 3) {
-						for (auto vert = 0; vert < 3; ++vert) {
-							auto regIndex = regCellData.vertex_index[triCount + vert];
-							auto resultIndex = determineVertIndices[regIndex];
-							block.Indices.push_back(resultIndex);
-						}
+				// push all triangles
+				auto triMaxCount = regCellData.get_triangle_count() * 3;
+				for (auto triCount = 0L; triCount < triMaxCount; triCount += 3) {
+					for (auto vert = 0; vert < 3; ++vert) {
+						auto regIndex = regCellData.vertex_index[triCount + vert];
+						auto resultIndex = determineVertIndices[regIndex];
+						block.Indices.push_back(resultIndex);
 					}
 				}
 				
@@ -222,55 +236,114 @@ void VzVoxel::polygonize_block() {
 
 }
 
-VzVoxel::Cell VzVoxel::make_cell(const Block& block, const glm::vec3& localPos) {	
+VzVoxel::Cell VzVoxel::make_cell(const Block& block, const glm::vec3& localCoords) {
 	Cell cell;
 
-	cell.Pos = glm::vec3(
-		(localPos.x + block.Pos.x * BLOCK_EXTENT),
-		(localPos.y + block.Pos.y * BLOCK_EXTENT),
-		(localPos.z + block.Pos.z * BLOCK_EXTENT)
-	);
+	cell.Base = glm::vec3(
+					(localCoords.x + block.Coords.x * BLOCK_EXTENT),
+					(localCoords.y + block.Coords.y * BLOCK_EXTENT),
+					(localCoords.z + block.Coords.z * BLOCK_EXTENT));
 
-	cell.LocalPos = localPos;
+	cell.LocalBase = localCoords;
+
+	cell.IsOnBoundary =
+			cell.LocalBase.x == 0 || cell.LocalBase.x == BLOCK_EXTENT - 1
+		||	cell.LocalBase.y == 0 || cell.LocalBase.y == BLOCK_EXTENT - 1
+		||	cell.LocalBase.z == 0 || cell.LocalBase.z == BLOCK_EXTENT - 1;
+
+	cell.LocalId = unsigned(
+			cell.LocalBase.z * BLOCK_EXTENT * BLOCK_EXTENT
+		+	cell.LocalBase.y * BLOCK_EXTENT
+		+	cell.LocalBase.x);
 
 	for (auto i = 0; i < 8; ++i) {
-		auto cornerPos = get_pos_corner(i, localPos);
-		char d = get_density(cornerPos, block);
+		auto blockCoords = block.Coords;
+		auto localCornerPos = get_local_corner_pos(i, cell, blockCoords);
+		char d = get_density(localCornerPos, block);
 		cell.V[i] = d;
 	}
 	
 	return cell;
 }
 
-glm::vec3 VzVoxel::get_pos_corner(int cornerId, const glm::vec3& basePos) {
-	switch (cornerId) {
-	case 0 : 
-		return basePos;
-	case 1 :
-		return basePos + UNIT_X;
-	case 2 :
-		return basePos - UNIT_Z;
-	case 3 :
-		return basePos + UNIT_X - UNIT_Z;
-	case 4 :
-		return basePos + UNIT_Y;
-	case 5 :
-		return basePos + UNIT_X + UNIT_Y;
-	case 6 :
-		return basePos + UNIT_Y - UNIT_Z;
-	case 7 :
-		return basePos + UNIT_X + UNIT_Y - UNIT_Z;
+glm::vec3 VzVoxel::get_local_corner_pos(int cornerId, const Cell& cell, glm::vec3& blockCoords) const {
+	assert(cornerId >= 0 && cornerId < 8);
+
+	glm::vec3 localCoords = cell.LocalBase;
+
+	switch (cornerId)
+	{
+	case 1:
+		localCoords += UNIT_X;
+		break;
+	case 2:
+		localCoords += UNIT_Y;
+		break;
+	case 3:
+		localCoords += (UNIT_Y + UNIT_X);
+		break;
+	case 4:
+		localCoords += UNIT_Z;
+		break;
+	case 5:
+		localCoords += (UNIT_Z + UNIT_X);
+		break;
+	case 6:
+		localCoords += (UNIT_Z + UNIT_Y);
+		break;
+	case 7:
+		localCoords += (UNIT_Z + UNIT_Y + UNIT_X);
+		break;
+	};
+
+	for (auto i = 0u; i < 3u; ++i) {
+		if (localCoords[i] < BLOCK_EXTENT)
+			continue;
+
+		auto remainder = long(localCoords[i]) % (BLOCK_EXTENT - 1);
+		if (remainder) {
+			localCoords[i] = BLOCK_EXTENT - 1;
+		}
 	}
 
+	return localCoords;
+}
+
+glm::vec3 VzVoxel::get_world_corner_pos(int cornerId, const Cell& cell) const {
+	assert(cornerId >= 0 && cornerId < 8);
+
+	auto base = cell.Base;
+
+	switch (cornerId)
+	{
+	case 0:
+		return base;
+	case 1:
+		return base + UNIT_X;
+	case 2:
+		return base + UNIT_Y;
+	case 3:
+		return base + (UNIT_Y + UNIT_X);
+	case 4:
+		return base + UNIT_Z;
+	case 5:
+		return base + (UNIT_Z + UNIT_X);
+	case 6:
+		return base + (UNIT_Z + UNIT_Y);
+	case 7:
+		return base + (UNIT_Z + UNIT_Y + UNIT_X);
+	};
+
+	assert(false);
 	return glm::vec3(FLT_MAX);
 }
 
-char VzVoxel::get_density(const glm::vec3& cornerPos, const Block& block) {
-	auto index = get_index_density_map(cornerPos);
+char VzVoxel::get_density(const glm::vec3& localConerCoords, const Block& block) {
+	auto index = get_index_density_map(localConerCoords);
 	return block.Density[index];
 }
 
-unsigned VzVoxel::get_index_density_map(const glm::vec3 & pos) const {
+unsigned VzVoxel::get_index_density_map(const glm::vec3& pos) const {
 	return static_cast<unsigned>(pos.x + (pos.y * BLOCK_EXTENT) + (pos.z * BLOCK_EXTENT * BLOCK_EXTENT));
 }
 
@@ -306,11 +379,32 @@ unsigned VzVoxel::make_id_reuse_vertex(const glm::vec3 & reusePos) {
 }
 
 unsigned VzVoxel::generate_vertex_from_point(Block& block, const Cell& cell, char cornerId) {
-	auto V = get_pos_corner(cornerId, cell.Pos);
+	auto V = get_world_corner_pos(cornerId, cell);
 
 	// todo : calculate normal and process material info.
 	V *= 256.0f;
-	block.Vertices.push_back(glm::vec4(V, 0.0f));
+	V *= (1.0f / 256.0f);	
+	block.Vertices.push_back(V);
 
 	return block.Vertices.size() - 1;
+}
+
+unsigned VzVoxel::get_block_vertices_size() const {
+	const Block& block = _blocks.back();
+	return block.Vertices.size();
+}
+
+unsigned VzVoxel::get_block_indices_size() const {
+	const Block& block = _blocks.back();
+	return block.Indices.size();
+}
+
+const float * VzVoxel::get_block_vertices() const {
+	const Block& block = _blocks.back();
+	return (glm::value_ptr(block.Vertices.front()));
+}
+
+const unsigned * VzVoxel::get_block_indices() const {
+	const Block& block = _blocks.back();
+	return block.Indices.data();
 }

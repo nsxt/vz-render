@@ -163,5 +163,11 @@
     <None Include="..\resource\shaders\font.frag">
       <Filter>resources\shaders</Filter>
     </None>
+    <None Include="..\resource\shaders\voxel_block.vert">
+      <Filter>resources\shaders</Filter>
+    </None>
+    <None Include="..\resource\shaders\voxel_block.frag">
+      <Filter>resources\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -36,7 +36,9 @@ private:
 	void _init_material();
 
 private:
+	std::unique_ptr<VzVoxel> _voxel;
 	std::unique_ptr<VzShader> _shader;
 	GLuint _vbo;
+	GLuint _ebo;
 	GLuint _vao;
 };

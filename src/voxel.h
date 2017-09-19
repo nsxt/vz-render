@@ -52,7 +52,7 @@ public:
 		Block(Block&& rhs)
 			: ID(rhs.ID)
 			, Flags(rhs.Flags)
-			, Pos(rhs.Pos)
+			, Coords(rhs.Coords)
 			, Density(std::move(rhs.Density))
 			, Vertices(std::move(rhs.Vertices))
 			, Indices(std::move(rhs.Indices))
@@ -60,9 +60,9 @@ public:
 
 		unsigned ID;
 		BlockFlags Flags;
-		glm::vec3 Pos;
+		glm::vec3 Coords;
 		std::vector<char> Density;
-		std::vector<glm::vec4> Vertices;
+		std::vector<glm::vec3> Vertices;
 		std::vector<unsigned> Indices;
 
 		typedef GenericReuseVertexInfo<4> ReuseVertexInfo;
@@ -70,8 +70,11 @@ public:
 	};
 
 	struct Cell {
-		glm::vec3 Pos;
-		glm::vec3 LocalPos;
+		glm::vec3 Base;
+		glm::vec3 LocalBase;
+		unsigned BlockCoordId;
+		unsigned LocalId;
+		bool IsOnBoundary;
 		char V[8];
 	};
 
@@ -89,7 +92,9 @@ public:
 
 	Cell make_cell(const Block& block, const glm::vec3& localPos);
 
-	glm::vec3 get_pos_corner(int cornerId, const glm::vec3& basePos);
+	glm::vec3 get_local_corner_pos(int cornerId, const Cell& cell, glm::vec3& blockCoords) const;
+
+	glm::vec3 get_world_corner_pos(int cornerId, const Cell& cell) const;
 
 	char get_density(const glm::vec3& cornerPos, const Block& block);
 	
@@ -102,6 +107,12 @@ public:
 	unsigned make_id_reuse_vertex(const glm::vec3& reusePos);
 
 	unsigned generate_vertex_from_point(Block& block, const Cell& cell, char cornerId);
+
+	unsigned get_block_vertices_size() const;
+	unsigned get_block_indices_size() const;
+
+	const float* get_block_vertices() const;
+	const unsigned* get_block_indices() const;
 	
 private:
 	std::vector<Block> _blocks;

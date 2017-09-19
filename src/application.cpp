@@ -82,7 +82,8 @@ int run_app() {
 			VzCore::Timer.update_frame_count();
 			VzCore::Timer.calc_fps();			
 
-			glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			render_dummy();
@@ -173,11 +174,14 @@ void process_input(GLFWwindow* window) {
 //
 
 void init_dummy() {
-	VzCore::Cube.create();
+	//VzCore::Cube.create();
+	VzCore::VoxelBlockEntity.create();
 }
 void render_dummy() {
-	VzCore::Cube.render();
+	//VzCore::Cube.render();
+	VzCore::VoxelBlockEntity.render();
 }
 void destroy_dummy() {
-	VzCore::Cube.destroy();
+	//VzCore::Cube.destroy();
+	VzCore::VoxelBlockEntity.destroy();
 }
