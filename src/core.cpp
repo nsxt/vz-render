@@ -15,4 +15,6 @@ VzColor VzCore::Color;
 VzFont VzCore::Font;
 VzPlane VzCore::Plane(glm::vec3(0.0f, 0.0f, 0.0f));
 VzCube VzCore::Cube(glm::vec3(0.0f, 0.0f, 0.0f));
+
+VzSquareMatrixEntity VzCore::SquareMatrixEntity;
 VzVoxelBlockEntity VzCore::VoxelBlockEntity;

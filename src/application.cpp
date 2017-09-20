@@ -9,6 +9,7 @@
 //////////////////////////////////////////////////////
 #include "core.h"
 #include <iomanip>
+#include <glm/gtc/type_ptr.hpp>
 
 //////////////////////////////////////////////////////
 //
@@ -82,9 +83,12 @@ int run_app() {
 			VzCore::Timer.update_frame_count();
 			VzCore::Timer.calc_fps();			
 
-			//glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			static const GLfloat one = 1.0f;
+			glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
+			glClearBufferfv(GL_DEPTH, 0, &one);			
 			
 			render_dummy();
 
@@ -175,13 +179,16 @@ void process_input(GLFWwindow* window) {
 
 void init_dummy() {
 	//VzCore::Cube.create();
-	VzCore::VoxelBlockEntity.create();
+	//VzCore::VoxelBlockEntity.create();
+	VzCore::SquareMatrixEntity.create();
 }
 void render_dummy() {
 	//VzCore::Cube.render();
-	VzCore::VoxelBlockEntity.render();
+	//VzCore::VoxelBlockEntity.render();
+	VzCore::SquareMatrixEntity.render();
 }
 void destroy_dummy() {
 	//VzCore::Cube.destroy();
-	VzCore::VoxelBlockEntity.destroy();
+	//VzCore::VoxelBlockEntity.destroy();
+	VzCore::SquareMatrixEntity.destroy();
 }

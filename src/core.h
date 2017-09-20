@@ -39,6 +39,8 @@
 #include "plane.h"
 #include "cube.h"
 
+#include "square_matrix_entity.h"
+
 #include "voxel_regular_table.h"
 #include "voxel.h"
 #include "voxel_block_entity.h"
@@ -91,5 +93,7 @@ public:
 	static VzColor Color;
 	static VzPlane Plane;
 	static VzCube Cube;	
+
+	static VzSquareMatrixEntity SquareMatrixEntity;
 	static VzVoxelBlockEntity VoxelBlockEntity;
 };

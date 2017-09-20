@@ -139,6 +139,7 @@
     <ClCompile Include="..\src\plane.cpp" />
     <ClCompile Include="..\src\file.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\square_matrix_entity.cpp" />
     <ClCompile Include="..\src\voxel_block_entity.cpp" />
     <ClCompile Include="..\src\voxel_regular_table.cpp" />
     <ClCompile Include="..\src\voxel.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\src\plane.h" />
     <ClInclude Include="..\src\file.h" />
     <ClInclude Include="..\src\shader.h" />
+    <ClInclude Include="..\src\square_matrix_entity.h" />
     <ClInclude Include="..\src\timer.h" />
     <ClInclude Include="..\src\voxel_block_entity.h" />
     <ClInclude Include="..\src\voxel_regular_table.h" />
@@ -189,6 +191,12 @@
     <None Include="..\resource\shaders\font.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\resource\shaders\square_matrix.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </None>
+    <None Include="..\resource\shaders\square_matrix.vert">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="..\resource\shaders\voxel_block.frag">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

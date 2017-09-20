@@ -44,6 +44,9 @@
     <Filter Include="sources\transvoxel">
       <UniqueIdentifier>{f566e075-1e68-478f-949e-f9b9879e8727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\square matrix">
+      <UniqueIdentifier>{514cc7f0-18ca-427b-9026-fea020c222bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -100,6 +103,9 @@
     <ClCompile Include="..\src\voxel_block_entity.cpp">
       <Filter>sources\transvoxel</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\square_matrix_entity.cpp">
+      <Filter>sources\square matrix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -141,6 +147,9 @@
     <ClInclude Include="..\src\voxel_block_entity.h">
       <Filter>sources\transvoxel</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\square_matrix_entity.h">
+      <Filter>sources\square matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\resource\shaders\cube.vert">
@@ -167,6 +176,12 @@
       <Filter>resources\shaders</Filter>
     </None>
     <None Include="..\resource\shaders\voxel_block.frag">
+      <Filter>resources\shaders</Filter>
+    </None>
+    <None Include="..\resource\shaders\square_matrix.frag">
+      <Filter>resources\shaders</Filter>
+    </None>
+    <None Include="..\resource\shaders\square_matrix.vert">
       <Filter>resources\shaders</Filter>
     </None>
   </ItemGroup>
