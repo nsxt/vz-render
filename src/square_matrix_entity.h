@@ -30,6 +30,8 @@ public:
 	void think();
 	void post_think() {}
 
+	void generate_matrix(unsigned extent = 17);
+
 private:
 	void _init_shader();
 	void _init_geometry();
@@ -40,4 +42,8 @@ private:
 	GLuint _vbo;
 	GLuint _ebo;
 	GLuint _vao;
+
+	unsigned _square_extent;
+	std::vector<glm::vec3> _vertices;
+	std::vector<glm::uvec2> _indices;
 };

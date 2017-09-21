@@ -8,6 +8,7 @@
 //
 ///////////////////////////////////////////////////////////
 #include "core.h"
+#include <glm/gtc/type_ptr.hpp>
 
 float sm_vertices[] = {
 	0.0f, 0.0f, 0.0f,	// V0 - bottom:front left
@@ -32,12 +33,68 @@ VzSquareMatrixEntity::~VzSquareMatrixEntity() {
 }
 
 void VzSquareMatrixEntity::create() {
+
+	generate_matrix(17);
+
 	_init_shader();
 	_init_geometry();
 	_init_material();
 
 	ProjectionMat = VzCore::Camera.get_projection_matrix();
-	ModelMat = glm::translate(ModelMat, Position);
+	ModelMat = glm::translate(ModelMat, Position);		
+}
+
+void VzSquareMatrixEntity::generate_matrix(unsigned extent) {
+	assert(extent > 2);
+
+	_square_extent = extent;
+	
+	////////////////////////////////////////////////////////////
+	// create vertex
+
+	for (unsigned z = 0; z < extent; z++)
+	for (unsigned y = 0; y < extent; y++)
+	for (unsigned x = 0; x < extent; x++) {
+		_vertices.push_back(glm::vec3(x, y, z));
+	}
+
+	////////////////////////////////////////////////////////////
+	// create index
+	
+	// x-axis lines
+	glm::uvec2 x_base_line(0, extent - 1);
+	for (unsigned muly = 0; muly < extent; muly++) {
+		if (muly > 0)
+			x_base_line += extent;
+
+		for (unsigned i = 0; i < extent; i++) {
+			unsigned next = i * extent * extent;
+			_indices.push_back((x_base_line + next));
+		}
+
+	}
+
+	// z-axis lines	: x^2*(x-1) = x^3-x^2
+	glm::uvec2 z_base_line(0, std::pow(extent, 2) * (extent - 1)); 	
+	for (unsigned muly = 0; muly < extent; muly++) {
+		if (muly > 0)
+			z_base_line += extent;
+
+		for (unsigned i = 0; i < extent; i++) {
+			_indices.push_back((z_base_line + i));
+		}
+	}
+
+	// y-axis lines : x^2-x
+	glm::uvec2 y_base_line(0, std::pow(extent, 2) - extent);
+	for (unsigned muly = 0; muly < extent; muly++) {
+		if (muly > 0)
+			y_base_line += (extent * extent);
+
+		for (unsigned i = 0; i < extent; i++) {
+			_indices.push_back((glm::uvec2(i,i) + y_base_line));
+		}
+	}
 }
 
 void VzSquareMatrixEntity::render() {
@@ -55,7 +112,9 @@ void VzSquareMatrixEntity::render() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindVertexArray(_vao);
-	glDrawElements(GL_LINES, sizeof(sm_indices), GL_UNSIGNED_INT, 0);
+
+	auto indicesSize = _indices.size() * sizeof(unsigned) * 2;
+	glDrawElements(GL_LINES, indicesSize, GL_UNSIGNED_INT, 0);
 
 	glBlendFunc(GL_SRC_ALPHA, last_blend_src_alpha);
 	if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
@@ -85,6 +144,12 @@ void VzSquareMatrixEntity::_init_shader() {
 }
 
 void VzSquareMatrixEntity::_init_geometry() {
+	
+	auto verticesSize = _vertices.size() * sizeof(float) * 3;
+	auto indicesSize = _indices.size() * sizeof(unsigned) * 2;
+	auto verticesDataPtr = _vertices.data();
+	auto indicesDataPtr = _indices.data();
+
 
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);
@@ -93,10 +158,12 @@ void VzSquareMatrixEntity::_init_geometry() {
 	glBindVertexArray(_vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(sm_vertices), sm_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verticesSize, verticesDataPtr, GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(sm_vertices), sm_vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sm_indices), sm_indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indicesDataPtr, GL_STATIC_DRAW);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sm_indices), sm_indices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
