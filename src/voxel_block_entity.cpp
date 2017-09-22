@@ -48,9 +48,13 @@ void VzVoxelBlockEntity::render() {
 	_shader->set_mat4("model", ModelMatrix);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth((GLfloat)3.0f);
+
 	glBindVertexArray(_vao);
 	glDrawElements(GL_TRIANGLES, _voxel->get_block_indices_size(), GL_UNSIGNED_INT, 0);	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glLineWidth((GLfloat)1.0f);
 }
 
 void VzVoxelBlockEntity::_init_shader() {

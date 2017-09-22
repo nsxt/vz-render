@@ -10,20 +10,6 @@
 #include "core.h"
 #include <glm/gtc/type_ptr.hpp>
 
-float sm_vertices[] = {
-	0.0f, 0.0f, 0.0f,	// V0 - bottom:front left
-	1.0f, 0.0f, 0.0f,	// V1 - bottom:front right
-	0.0f, 1.0f, 0.0f,	// V2 - top:front left
-	1.0f, 1.0f, 0.0f,	// V3 - top:front right
-};
-
-unsigned int sm_indices[] = {
-	0, 1,
-	2, 3,
-	0, 2,
-	1, 3,
-};
-
 VzSquareMatrixEntity::VzSquareMatrixEntity() 
 	: Position(glm::vec3(0.0f))
 	, Orientation(glm::vec3(0.0f)) {
@@ -97,8 +83,7 @@ void VzSquareMatrixEntity::generate_matrix(unsigned extent) {
 	}
 }
 
-void VzSquareMatrixEntity::render() {
-	
+void VzSquareMatrixEntity::render() {	
 	think();
 
 	_shader->use();
@@ -110,12 +95,14 @@ void VzSquareMatrixEntity::render() {
 	GLboolean last_enable_blend = glIsEnabled(GL_BLEND);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glLineWidth((GLfloat)0.5f);
 
 	glBindVertexArray(_vao);
 
 	auto indicesSize = _indices.size() * sizeof(unsigned) * 2;
 	glDrawElements(GL_LINES, indicesSize, GL_UNSIGNED_INT, 0);
 
+	glLineWidth((GLfloat)1.0f);
 	glBlendFunc(GL_SRC_ALPHA, last_blend_src_alpha);
 	if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
 }

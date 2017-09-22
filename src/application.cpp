@@ -179,16 +179,19 @@ void process_input(GLFWwindow* window) {
 
 void init_dummy() {
 	//VzCore::Cube.create();
-	//VzCore::VoxelBlockEntity.create();
+
 	VzCore::SquareMatrixEntity.create();
+	VzCore::VoxelBlockEntity.create();
 }
 void render_dummy() {
 	//VzCore::Cube.render();
-	//VzCore::VoxelBlockEntity.render();
+	
 	VzCore::SquareMatrixEntity.render();
+	VzCore::VoxelBlockEntity.render();	
 }
 void destroy_dummy() {
 	//VzCore::Cube.destroy();
-	//VzCore::VoxelBlockEntity.destroy();
+	
 	VzCore::SquareMatrixEntity.destroy();
+	VzCore::VoxelBlockEntity.destroy();
 }

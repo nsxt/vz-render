@@ -39,11 +39,12 @@
 #include "plane.h"
 #include "cube.h"
 
-#include "square_matrix_entity.h"
-
 #include "voxel_regular_table.h"
 #include "voxel.h"
 #include "voxel_block_entity.h"
+
+#include "point_matrix_entity.h"
+#include "square_matrix_entity.h"
 
 //////////////////////////////////////////////////////
 //
