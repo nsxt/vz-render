@@ -113,6 +113,8 @@ public:
 
 	const float* get_block_vertices() const;
 	const unsigned* get_block_indices() const;
+
+	const std::vector<char>& get_block_density() const;
 	
 private:
 	std::vector<Block> _blocks;

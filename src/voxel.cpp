@@ -45,13 +45,13 @@ void VzVoxel::create_block(const int& blockId) {
 			for (unsigned x = 0u; x < BLOCK_EXTENT; ++x) {
 				unsigned index = x + (y * BLOCK_EXTENT) + (z * BLOCK_EXTENT * BLOCK_EXTENT);
 				//char isovalue = get_isovalue_sphere(x, y, z) > 0 ? 0 : 0xFF;
-				char isovalue = 0;
+				char isovalue = 100;
 				block.Density.push_back(isovalue);
 			}
 
 	unsigned center = (BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT*BLOCK_EXTENT / 2);	
 	block.Density[0] = -1;
-	block.Density[1] = -1;
+	//block.Density[1] = -1;
 	//block.Density[BLOCK_EXTENT*BLOCK_EXTENT + 1] = -128;
 
 	_blocks.push_back(std::move(block));
@@ -407,4 +407,9 @@ const float * VzVoxel::get_block_vertices() const {
 const unsigned * VzVoxel::get_block_indices() const {
 	const Block& block = _blocks.back();
 	return block.Indices.data();
+}
+
+const std::vector<char>& VzVoxel::get_block_density() const {
+	const Block& block = _blocks.back();
+	return block.Density;
 }

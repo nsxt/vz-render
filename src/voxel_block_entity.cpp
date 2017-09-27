@@ -39,6 +39,10 @@ void VzVoxelBlockEntity::think() {
 	ViewMatrix = VzCore::Camera.get_view_matrix();
 }
 
+const std::vector<char>& VzVoxelBlockEntity::get_block_density() const {
+	return _voxel->get_block_density();
+}
+
 void VzVoxelBlockEntity::render() {
 	think();
 

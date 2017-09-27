@@ -145,12 +145,10 @@ void VzSquareMatrixEntity::_init_geometry() {
 	glBindVertexArray(_vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, verticesSize, verticesDataPtr, GL_STATIC_DRAW);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(sm_vertices), sm_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, verticesSize, verticesDataPtr, GL_STATIC_DRAW);	
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indicesDataPtr, GL_STATIC_DRAW);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sm_indices), sm_indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, indicesDataPtr, GL_STATIC_DRAW);	
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);

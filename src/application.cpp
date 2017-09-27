@@ -182,16 +182,23 @@ void init_dummy() {
 
 	VzCore::SquareMatrixEntity.create();
 	VzCore::VoxelBlockEntity.create();
+
+	VzCore::PointMatrixEntity.create(VzCore::VoxelBlockEntity.get_block_density(), 16U);
+
 }
 void render_dummy() {
-	//VzCore::Cube.render();
+	//VzCore::Cube.render();	
 	
 	VzCore::SquareMatrixEntity.render();
-	VzCore::VoxelBlockEntity.render();	
+	VzCore::PointMatrixEntity.render();
+
+	VzCore::VoxelBlockEntity.render();
 }
 void destroy_dummy() {
 	//VzCore::Cube.destroy();
 	
 	VzCore::SquareMatrixEntity.destroy();
+	VzCore::PointMatrixEntity.destroy();
+
 	VzCore::VoxelBlockEntity.destroy();
 }

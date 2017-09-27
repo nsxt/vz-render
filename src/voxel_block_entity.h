@@ -30,6 +30,8 @@ public:
 	void think();
 	void post_think() {}
 
+	const std::vector<char>& get_block_density() const;
+
 private:
 	void _init_shader();
 	void _init_geometry();

@@ -22,13 +22,15 @@ public:
 	~VzPointMatrixEntity();
 
 public:
-	void create();
+	void create(const std::vector<char>& density, unsigned extent);
 	void render();
 	void destroy();
 
 	void pre_think() {}
 	void think();
 	void post_think() {}
+
+	void generate_matrix(const std::vector<char>& density, unsigned extent);
 
 private:
 	void _init_shader();
