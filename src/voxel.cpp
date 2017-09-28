@@ -45,14 +45,112 @@ void VzVoxel::create_block(const int& blockId) {
 			for (unsigned x = 0u; x < BLOCK_EXTENT; ++x) {
 				unsigned index = x + (y * BLOCK_EXTENT) + (z * BLOCK_EXTENT * BLOCK_EXTENT);
 				//char isovalue = get_isovalue_sphere(x, y, z) > 0 ? 0 : 0xFF;
-				char isovalue = 100;
+				char isovalue = 1 ;
 				block.Density.push_back(isovalue);
 			}
 
-	unsigned center = (BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT / 2) + (BLOCK_EXTENT*BLOCK_EXTENT*BLOCK_EXTENT / 2);	
-	block.Density[0] = -1;
+	// case #1
+	//block.Density[0] = -1;
+
+	// case #2
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+
+	// case #3
+	//block.Density[0] = -1;
 	//block.Density[1] = -1;
-	//block.Density[BLOCK_EXTENT*BLOCK_EXTENT + 1] = -128;
+
+	// case #4
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + (BLOCK_EXTENT + 1)] = -1;
+
+	// case #5
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+
+	// case #6
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + (BLOCK_EXTENT + 1)] = -1;
+
+	// case #7
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+
+	// case #8
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+
+	// case #9
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + (BLOCK_EXTENT + 1)] = -1;
+
+	// case #10
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+
+	// case #11
+	//block.Density[0] = -1;
+	//block.Density[1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+
+	// case #12
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + (BLOCK_EXTENT + 1)] = -1;
+
+	// case #13
+	//block.Density[1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+
+	// case #14
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+
+	// case #15
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 1] = -1;
+
+	// case #16
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 1] = -1;
+
+	// case #17
+	//block.Density[0] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT] = -1;
+	//block.Density[BLOCK_EXTENT + 1] = -1;
+
+	// case 'ambiguous face'
+	block.Density[2] = -1;
+	block.Density[1] = -1;
+	block.Density[BLOCK_EXTENT + 2] = -1;
+	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 2] = -1;
+	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 1] = -1;
+	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 2] = -1;	
+
 
 	_blocks.push_back(std::move(block));
 }
@@ -135,6 +233,7 @@ void VzVoxel::polygonize_block() {
 						vertIndexInCell = 0;
 					}
 
+					/*
 					// reuse an old vertex
 					if ((direction & reuseValidityMask) == direction && isReuse) {
 						glm::vec3 reuseCellPos = get_pos_adjcell(direction, cellLocalPos);
@@ -150,7 +249,7 @@ void VzVoxel::polygonize_block() {
 
 							// vertex lie on the interior of an edge, so that they must have vertex index.
 							if ((t & 0x00FF) != 0 && t != 0) {
-								BOOST_ASSERT(determineVertIndices[curRegVertCount] != INVALID_INDEX);
+								//BOOST_ASSERT(determineVertIndices[curRegVertCount] != INVALID_INDEX);
 							}
 							else {
 								if (determineVertIndices[curRegVertCount] == INVALID_INDEX) {
@@ -170,6 +269,7 @@ void VzVoxel::polygonize_block() {
 
 						shouldCreateNewVertex = false;
 					}
+					*/
 
 					// create a new vertex on this position
 					if (shouldCreateNewVertex) {
@@ -195,6 +295,7 @@ void VzVoxel::polygonize_block() {
 
 							const long u = 0x0100 - t;
 							glm::vec4 Q = glm::vec4((float)t * P0 + (float)u * P1, 0.0f);
+							Q *= (1.0f / 256.0f);
 
 							block.Vertices.push_back(Q);
 							auto index = block.Vertices.size() - 1;
@@ -383,7 +484,7 @@ unsigned VzVoxel::generate_vertex_from_point(Block& block, const Cell& cell, cha
 
 	// todo : calculate normal and process material info.
 	V *= 256.0f;
-	V *= (1.0f / 256.0f);	
+	V *= (1.0f / 256.0f);
 	block.Vertices.push_back(V);
 
 	return block.Vertices.size() - 1;

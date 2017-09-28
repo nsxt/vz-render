@@ -83,7 +83,7 @@ void VzSquareMatrixEntity::generate_matrix(unsigned extent) {
 	}
 }
 
-void VzSquareMatrixEntity::render() {	
+void VzSquareMatrixEntity::render() {
 	think();
 
 	_shader->use();

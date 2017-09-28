@@ -110,7 +110,7 @@
       <Filter>sources\square matrix</Filter>
     </ClCompile>
     <ClCompile Include="..\src\point_matrix_entity.cpp">
-      <Filter>sources</Filter>
+      <Filter>sources\point matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
