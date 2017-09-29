@@ -81,19 +81,20 @@ int run_app() {
 			VzCore::Timer.reset_delta();
 
 			VzCore::Timer.update_frame_count();
-			VzCore::Timer.calc_fps();			
-
-			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			VzCore::Timer.calc_fps();
 
 			static const GLfloat one = 1.0f;
 			glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
-			glClearBufferfv(GL_DEPTH, 0, &one);			
+			glClearBufferfv(GL_DEPTH, 0, &one);
 			
 			render_dummy();
 
 			ImGui_ImplGlfwGL3_NewFrame();
 			ImGui::Begin("VZ-Render Property");
+			{
+				const glm::vec3& cam = VzCore::Camera.Position;
+				ImGui::Text("Camera Position (%.1f, %.1f, %.1f)", cam.x, cam.y, cam.z);
+			}
 			ImGui::End();
 			ImGui::Render();
 

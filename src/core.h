@@ -34,8 +34,9 @@
 #include "shader.h"
 #include "camera.h"
 #include "color.h"
-
 #include "font.h"
+#include "ui.h"
+
 #include "plane.h"
 #include "cube.h"
 

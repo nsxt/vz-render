@@ -50,6 +50,9 @@
     <Filter Include="sources\point matrix">
       <UniqueIdentifier>{816893f8-e9f1-4f85-849d-bb62f193f605}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\ui">
+      <UniqueIdentifier>{6c3b0b75-0bf4-4532-b68a-343a42fce64b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -112,6 +115,9 @@
     <ClCompile Include="..\src\point_matrix_entity.cpp">
       <Filter>sources\point matrix</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ui.cpp">
+      <Filter>sources\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -158,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="..\src\point_matrix_entity.h">
       <Filter>sources\point matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ui.h">
+      <Filter>sources\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
