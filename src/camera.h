@@ -48,7 +48,7 @@ public:
 		Up(glm::vec3(0.0f, 1.0f, 0.0f)),
 		WorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 		ScreenWidth(0), ScreenHeight(0),
-		Yaw(0.0f), Pitch(0.0f),
+		Yaw(YAW), Pitch(PITCH),
 		MovementSpeed(SPEED),
 		MouseSensitivity(SENSITIVITY),
 		Zoom(ZOOM) { }
@@ -78,16 +78,16 @@ public:
 		if (direction == BACKWARD)
 			Position -= Target * velocity;
 		if (direction == LEFT)
-			Position -= Right * velocity;
-		if (direction == RIGHT)
 			Position += Right * velocity;
+		if (direction == RIGHT)
+			Position -= Right * velocity;
 	}
 
 	void process_mouse_movement(float xoffset, float yoffset, bool constrain_pitch = true) {
 		xoffset *= MouseSensitivity;
 		yoffset *= MouseSensitivity;
 
-		Yaw += xoffset;
+		Yaw -= xoffset;
 		Pitch += yoffset;
 
 		// Make sure that when pitch is out of bounds, screen doesn't get flipped
@@ -120,9 +120,9 @@ private:
 	void _update_camera_vector() {
 		// Calculate the new Target(front) vector
 		glm::vec3 target;
-		target.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+		target.x = cos(glm::radians(Pitch)) * cos(glm::radians(Yaw));
 		target.y = sin(glm::radians(Pitch));
-		target.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+		target.z = cos(glm::radians(Pitch)) * sin(glm::radians(Yaw));
 
 		Target = glm::normalize(target);
 

@@ -49,6 +49,10 @@ void VzVoxel::create_block(const int& blockId) {
 				block.Density.push_back(isovalue);
 			}
 
+
+	// case #Temp
+	block.Density[1] = -1;
+
 	// case #1
 	//block.Density[0] = -1;
 
@@ -144,13 +148,12 @@ void VzVoxel::create_block(const int& blockId) {
 	//block.Density[BLOCK_EXTENT + 1] = -1;
 
 	// case 'ambiguous face'
-	block.Density[2] = -1;
-	block.Density[1] = -1;
-	block.Density[BLOCK_EXTENT + 2] = -1;
-	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 2] = -1;
-	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 1] = -1;
-	block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 2] = -1;	
-
+	//block.Density[2] = -1;
+	//block.Density[1] = -1;
+	//block.Density[BLOCK_EXTENT + 2] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + 2] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 1] = -1;
+	//block.Density[BLOCK_EXTENT * BLOCK_EXTENT + BLOCK_EXTENT + 2] = -1;
 
 	_blocks.push_back(std::move(block));
 }

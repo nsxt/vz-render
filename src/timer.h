@@ -20,19 +20,38 @@ class VzTimer {
 
 public:
 	VzTimer() :
-		_elapsed_time{ 0.0f }, _delta_time{ 0.f }, _time_diff{ 0.f },
-		_target_fps{ 0.f }, _current_fps{ 0.0f }, _alpha_time{ 0.0f }, _frame_count { 1 } {}
+		_is_one_frame{false}, _elapsed_time{0.0f}, _delta_time{0.0f}, _time_diff{0.0f},
+		_target_fps{0.0f}, _current_fps{0.0f}, _alpha_time{0.0f}, _frame_count{1} {}
 
 	~VzTimer() {}
 
+	void pre_think() {};
+
+	void think() {
+		update();
+
+		if (is_delta_arrival()) {
+			_is_one_frame = true;
+		}
+	}
+
+	void post_think() {
+		if (_is_one_frame) {
+			_is_one_frame = false;
+			reset_delta();
+			update_frame_count();
+			calc_fps();
+		}
+	}
+
 	void initialize() {
 		_previous_time = clock::now();
-	}
+	}	
 
 	inline void update() {
 		_current_time = clock::now();
 		_time_diff = clamp<float>((float)(duration(_current_time - _previous_time).count() / 1000.f), 0.f, 1.f);
-		_elapsed_time += _time_diff;		
+		_elapsed_time += _time_diff;
 		_previous_time = _current_time;
 		_delta_time += _time_diff;
 		_alpha_time += _time_diff;
@@ -79,10 +98,15 @@ public:
 		return _time_diff;
 	}
 
+	inline bool one_frame() const {
+		return _is_one_frame;
+	}
+
 private:
 	clock::time_point _current_time;
 	clock::time_point _previous_time;
 
+	bool _is_one_frame;
 	float _elapsed_time;
 	float _delta_time;	
 	float _time_diff;

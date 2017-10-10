@@ -20,7 +20,7 @@ VzSquareMatrixEntity::~VzSquareMatrixEntity() {
 
 void VzSquareMatrixEntity::create() {
 
-	generate_matrix(17);
+	generate_matrix(2);
 
 	_init_shader();
 	_init_geometry();
@@ -31,7 +31,7 @@ void VzSquareMatrixEntity::create() {
 }
 
 void VzSquareMatrixEntity::generate_matrix(unsigned extent) {
-	assert(extent > 2);
+	//assert(extent > 2);
 
 	_square_extent = extent;
 	

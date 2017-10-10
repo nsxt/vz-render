@@ -8,8 +8,33 @@
 //----------------------------------------------------
 //////////////////////////////////////////////////////
 #include "core.h"
-#include <iomanip>
 #include <glm/gtc/type_ptr.hpp>
+
+//////////////////////////////////////////////////////
+//
+int run_app() {
+	if (init_app() < 0)
+		return -1;
+
+	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
+		VzCore::Timer.think();
+		glfwPollEvents();		
+		process_input(VzGlobal::WindowCtx);		
+
+		if (VzCore::Timer.one_frame()) {
+			clear_buffer();		
+			
+			render_ui();
+			render_dummy();
+
+			glfwSwapBuffers(VzGlobal::WindowCtx);
+		}
+
+		VzCore::Timer.post_think();
+	}
+
+	return deinit_app();
+}
 
 //////////////////////////////////////////////////////
 //
@@ -54,67 +79,30 @@ int init_app() {
 	
 	print_vendor_info();
 
-	return 0;
-}
-
-//////////////////////////////////////////////////////
-//
-int run_app() {
-	if (init_app() < 0) 
-		return -1;
-	
 	ImGui_ImplGlfwGL3_Init(VzGlobal::WindowCtx, true);
 
 	init_dummy();
 
-	std::ostringstream fps_oss;	
-	fps_oss << "FPS: ";	
+	return 0;
+}
 
-	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
-		glfwPollEvents();
-
-		VzCore::Timer.update();
-
-		process_input(VzGlobal::WindowCtx);
-				
-		if (VzCore::Timer.is_delta_arrival()) {
-			VzCore::Timer.reset_delta();
-
-			VzCore::Timer.update_frame_count();
-			VzCore::Timer.calc_fps();
-
-			static const GLfloat one = 1.0f;
-			glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
-			glClearBufferfv(GL_DEPTH, 0, &one);
-			
-			render_dummy();
-
-			ImGui_ImplGlfwGL3_NewFrame();
-			ImGui::Begin("VZ-Render Property");
-			{
-				const glm::vec3& cam = VzCore::Camera.Position;
-				ImGui::Text("Camera Position (%.1f, %.1f, %.1f)", cam.x, cam.y, cam.z);
-			}
-			ImGui::End();
-			ImGui::Render();
-
-			fps_oss.seekp(4);
-			fps_oss << std::setw(6) << std::left << VzCore::Timer.current_fps();
-			fps_oss.seekp(0, std::ios_base::end);
-			VzCore::Font.render_text(fps_oss.str(), glm::vec2(0.0f, 0.0f), VzCore::Color.YellowGreen, 1.0f);
-
-			glfwSwapBuffers(VzGlobal::WindowCtx);
-		}
-
-	}
-
+int deinit_app() {
 	VzCore::Font.deinitialize();
 	destroy_dummy();
 	ImGui_ImplGlfwGL3_Shutdown();
-	
 	glfwTerminate();
 
 	return 0;
+}
+
+void clear_buffer() {
+	static const GLfloat one = 1.0f;
+	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
+	glClearBufferfv(GL_DEPTH, 0, &one);
+}
+
+void render_ui() {
+	VzCore::UI.think();
 }
 
 //////////////////////////////////////////////////////

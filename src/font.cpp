@@ -8,10 +8,9 @@
 //
 ///////////////////////////////////////////////////////////
 #include "core.h"
-
+#include <iomanip>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -188,6 +187,15 @@ void VzFont::render_text(const std::string& text, const glm::vec2& pos, const gl
 	if (last_enable_cull_face) glEnable(GL_CULL_FACE); else glDisable(GL_CULL_FACE);
 	if (last_enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);
 	if (last_enable_scissor_test) glEnable(GL_SCISSOR_TEST); else glDisable(GL_SCISSOR_TEST);
+}
+
+void VzFont::render_fps() noexcept {
+	std::ostringstream fps_oss;
+	fps_oss << "FPS: ";
+	fps_oss.seekp(4);
+	fps_oss << std::setw(6) << std::left << VzCore::Timer.current_fps();
+	fps_oss.seekp(0, std::ios_base::end);
+	render_text(fps_oss.str(), glm::vec2(0.0f, 0.0f), VzCore::Color.YellowGreen, 1.0f);
 }
 
 void VzFont::_init_shader_obj() {

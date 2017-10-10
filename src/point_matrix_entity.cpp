@@ -8,6 +8,7 @@
 //
 ///////////////////////////////////////////////////////////
 #include "core.h"
+#include <glm/gtc/type_ptr.hpp>
 
 VzPointMatrixEntity::VzPointMatrixEntity() 
 	: Position(glm::vec3(0.0f))
@@ -40,10 +41,9 @@ void VzPointMatrixEntity::render() {
 	_shader->set_mat4("model", ModelMat);
 
 	glBindVertexArray(_vao);
-	glPointSize(10.0f);
-
-	auto verticesSize = _vertices.size() * sizeof(float) * 3;
-	glDrawArrays(GL_POINTS, 0, verticesSize);
+	glPointSize(8.0f);
+		
+	glDrawArrays(GL_POINTS, 0, _vertices.size());
 
 	glPointSize(1.0f);
 }
@@ -95,7 +95,7 @@ void VzPointMatrixEntity::_init_shader() {
 void VzPointMatrixEntity::_init_geometry() {
 	
 	auto verticesSize = _vertices.size() * sizeof(float) * 3;
-	auto verticesDataPtr = _vertices.data();
+	auto verticesDataPtr = glm::value_ptr(_vertices.front());
 
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);

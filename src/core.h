@@ -10,6 +10,7 @@
 #pragma once
 
 #define NOMINMAX
+#define GLM_FORCE_LEFT_HANDED
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -53,7 +54,11 @@
 //
 
 int init_app();
+int deinit_app();
 int run_app();
+
+void clear_buffer();
+void render_ui();
 
 void init_dummy();
 void render_dummy();
@@ -94,7 +99,8 @@ public:
 	static VzFont Font;
 	static VzColor Color;
 	static VzPlane Plane;
-	static VzCube Cube;	
+	static VzCube Cube;
+	static VzUI UI;
 		
 	static VzVoxelBlockEntity VoxelBlockEntity;
 	static VzSquareMatrixEntity SquareMatrixEntity;

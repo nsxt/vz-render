@@ -15,9 +15,11 @@ public:
 	~VzFont();
 
 public:
-	void initialize() noexcept;
-	void render_text(const std::string& text, const glm::vec2& pos, const glm::vec4& color, GLfloat scale) noexcept;
+	void initialize() noexcept;	
 	void deinitialize() noexcept;
+
+	void render_text(const std::string& text, const glm::vec2& pos, const glm::vec4& color, GLfloat scale) noexcept;
+	void render_fps() noexcept;
 
 private:
 	void _init_shader_obj();
