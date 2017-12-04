@@ -41,9 +41,6 @@
     <Filter Include="sources\color">
       <UniqueIdentifier>{9effc825-df45-4202-9bc6-ed435a4f8d9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\transvoxel">
-      <UniqueIdentifier>{f566e075-1e68-478f-949e-f9b9879e8727}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\square matrix">
       <UniqueIdentifier>{514cc7f0-18ca-427b-9026-fea020c222bc}</UniqueIdentifier>
     </Filter>
@@ -52,6 +49,12 @@
     </Filter>
     <Filter Include="sources\ui">
       <UniqueIdentifier>{6c3b0b75-0bf4-4532-b68a-343a42fce64b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\transvoxel_old">
+      <UniqueIdentifier>{f566e075-1e68-478f-949e-f9b9879e8727}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\Voxel">
+      <UniqueIdentifier>{55d8f2ad-7b4b-49d7-846e-a9e93f7c75b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,13 +104,13 @@
       <Filter>sources\color</Filter>
     </ClCompile>
     <ClCompile Include="..\src\voxel.cpp">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClCompile>
     <ClCompile Include="..\src\voxel_regular_table.cpp">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClCompile>
     <ClCompile Include="..\src\voxel_block_entity.cpp">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClCompile>
     <ClCompile Include="..\src\square_matrix_entity.cpp">
       <Filter>sources\square matrix</Filter>
@@ -117,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ui.cpp">
       <Filter>sources\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\polygonizer.cpp">
+      <Filter>sources\Voxel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,13 +157,13 @@
       <Filter>sources\color</Filter>
     </ClInclude>
     <ClInclude Include="..\src\voxel.h">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClInclude>
     <ClInclude Include="..\src\voxel_regular_table.h">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClInclude>
     <ClInclude Include="..\src\voxel_block_entity.h">
-      <Filter>sources\transvoxel</Filter>
+      <Filter>sources\transvoxel_old</Filter>
     </ClInclude>
     <ClInclude Include="..\src\square_matrix_entity.h">
       <Filter>sources\square matrix</Filter>
@@ -167,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ui.h">
       <Filter>sources\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\polygonizer.h">
+      <Filter>sources\Voxel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

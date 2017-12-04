@@ -18,11 +18,11 @@ int run_app() {
 
 	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
 		VzCore::Timer.think();
-		glfwPollEvents();		
-		process_input(VzGlobal::WindowCtx);		
+		glfwPollEvents();
+		process_input(VzGlobal::WindowCtx);
 
 		if (VzCore::Timer.one_frame()) {
-			clear_buffer();		
+			clear_buffer();
 			
 			render_ui();
 			render_dummy();

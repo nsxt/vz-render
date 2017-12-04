@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <array>
 #include <chrono>
 #include <map>
 #include <unordered_map>
@@ -47,6 +48,9 @@
 
 #include "square_matrix_entity.h"
 #include "point_matrix_entity.h"
+
+// New Classes for re-factoring
+#include "polygonizer.h"
 
 //////////////////////////////////////////////////////
 //
