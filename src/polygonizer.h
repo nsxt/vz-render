@@ -1,10 +1,18 @@
 #pragma once
 
+
+struct VzCell {
+	glm::vec3 position;
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned> indicies;
+};
+
 struct VzCornerValue {
 	std::array<char, 8> D;
+	std::array<glm::vec3, 8> P;
 	
 	VzCornerValue() 
-		: D{{}} 
+		: D{{}}, P{{}}
 	{}
 };
 
@@ -17,7 +25,7 @@ public:
 	// move ctor & assign
 
 	const unsigned get_case_code(const VzCornerValue& V);
-	void polygonization(const VzCornerValue& V);
+	void polygonization(const VzCornerValue& V, VzCell& cell);
 
 protected:
 

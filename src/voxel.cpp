@@ -51,7 +51,7 @@ void VzVoxel::create_block(const int& blockId) {
 
 
 	// case #Temp
-	block.Density[1] = -1;
+	//block.Density[1] = -1;
 
 	// case #1
 	//block.Density[0] = -1;
@@ -61,8 +61,8 @@ void VzVoxel::create_block(const int& blockId) {
 	//block.Density[BLOCK_EXTENT + 1] = -1;
 
 	// case #3
-	//block.Density[0] = -1;
-	//block.Density[1] = -1;
+	block.Density[0] = -1;
+	block.Density[1] = -1;
 
 	// case #4
 	//block.Density[0] = -1;
