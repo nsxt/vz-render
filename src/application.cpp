@@ -97,7 +97,7 @@ int deinit_app() {
 
 void clear_buffer() {
 	static const GLfloat one = 1.0f;
-	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
+	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::Black));
 	glClearBufferfv(GL_DEPTH, 0, &one);
 }
 
