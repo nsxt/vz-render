@@ -1,4 +1,109 @@
 #include "core.h"
+#include <glm/gtc/type_ptr.hpp>
+
+float g_vertices[] = {
+	1.0f,  0.0f, 0.0f,
+	0.0f,  1.0f, 0.0f,
+	0.0f,  0.0f, 1.0f,
+};
+unsigned int g_indices[] = {
+	0, 1, 2,
+};
+
+
+void VzPolygonizer::init()
+{
+	setup_cell();
+
+	// init shader
+	auto vs_file = VzFileSystem::get_path("/resource/shaders/voxel_block.vert");
+	auto ps_file = VzFileSystem::get_path("/resource/shaders/voxel_block.frag");
+	auto is_valid = !(vs_file.empty() || ps_file.empty());
+	if (!is_valid) {
+		BOOST_ASSERT_MSG(is_valid, "ERROR: Shader file load fail.");
+		return;
+	}
+	shader = std::make_unique<VzShader>(vs_file.c_str(), ps_file.c_str());
+
+	// init geometry
+	auto vertices_size = cell_1.vertices.size();
+	auto indices_size = cell_1.indices.size();
+	auto vertices = glm::value_ptr(cell_1.vertices.front());
+	auto indices = cell_1.indices.data();
+
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ebo);
+
+	glBindVertexArray(vao);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * 3, g_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned) * 3, g_indices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	// init model matrix
+	glm::vec3 position;
+	model_mat = glm::translate(model_mat, position);
+}
+
+void VzPolygonizer::render()
+{
+	view_mat = VzCore::Camera.get_view_matrix();
+	projection_mat = VzCore::Camera.get_projection_matrix();
+
+	shader->use();
+	shader->set_mat2("projection", projection_mat);
+	shader->set_mat4("view", view_mat);
+	shader->set_mat4("model", model_mat);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth((GLfloat)2.0f);
+
+	glBindVertexArray(vao);
+	glDrawElements(GL_TRIANGLES, cell_1.indices.size(), GL_UNSIGNED_INT, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glLineWidth((GLfloat)1.0f);
+}
+
+void VzPolygonizer::deinit()
+{
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ebo);
+}
+
+// todo : ±‚¡ÿ ¡¬«•∞Ë up:z / right:x / forward:y
+void VzPolygonizer::setup_cell()
+{
+	corner_value_1.D[0] = -1;
+	corner_value_1.D[1] = 1;
+	corner_value_1.D[2] = 1;
+	corner_value_1.D[3] = 1;
+	corner_value_1.D[4] = 1;
+	corner_value_1.D[5] = 1;
+	corner_value_1.D[6] = 1;
+	corner_value_1.D[7] = 1;
+
+	corner_value_1.P[0] = glm::vec3(0.0f, 0.0f, 0.0f);
+	corner_value_1.P[1] = glm::vec3(0.1f, 0.0f, 0.0f);
+	corner_value_1.P[2] = glm::vec3(0.0f, 1.0f, 0.0f);
+	corner_value_1.P[3] = glm::vec3(1.0f, 1.0f, 0.0f);
+	corner_value_1.P[4] = glm::vec3(0.0f, 0.0f, 1.0f);
+	corner_value_1.P[5] = glm::vec3(1.0f, 0.0f, 1.0f);
+	corner_value_1.P[6] = glm::vec3(0.0f, 1.0f, 1.0f);
+	corner_value_1.P[7] = glm::vec3(1.0f, 1.0f, 1.0f);
+
+	polygonization(corner_value_1, cell_1);
+}
 
 const unsigned VzPolygonizer::get_case_code(const VzCornerValue& V)
 {
@@ -61,6 +166,7 @@ void VzPolygonizer::polygonization(const VzCornerValue& V, VzCell& cell)
 			const short u = 0x0100 - t;
 			glm::vec4 Q = glm::vec4((float)t * P0 + (float)u * P1, 0.0f);
 			Q *= (1.0f / 256.0f);
+			Q *= 10.0f;
 
 			cell.vertices.push_back(Q);
 			created_vertex_index[count] = cell.vertices.size() - 1;
@@ -92,7 +198,7 @@ void VzPolygonizer::polygonization(const VzCornerValue& V, VzCell& cell)
 		for (auto vert = 0; vert < 3; ++vert) {
 			auto index = triangulation_class.vertex_index[tri + vert];
 			auto result = created_vertex_index[index];
-			cell.indicies.push_back(result);
+			cell.indices.push_back(result);
 		}
 	}
 }

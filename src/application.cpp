@@ -169,25 +169,30 @@ void process_input(GLFWwindow* window) {
 void init_dummy() {
 	//VzCore::Cube.create();
 
-	VzCore::SquareMatrixEntity.create();
-	VzCore::VoxelBlockEntity.create();
+	//VzCore::SquareMatrixEntity.create();
+	//VzCore::VoxelBlockEntity.create();
+	//VzCore::PointMatrixEntity.create(VzCore::VoxelBlockEntity.get_block_density(), 16U);
 
-	VzCore::PointMatrixEntity.create(VzCore::VoxelBlockEntity.get_block_density(), 16U);
+	VzCore::Polygonizer.init();
 
 }
 void render_dummy() {
 	//VzCore::Cube.render();	
 	
-	VzCore::SquareMatrixEntity.render();
-	VzCore::PointMatrixEntity.render();
+	//VzCore::SquareMatrixEntity.render();
+	//VzCore::PointMatrixEntity.render();
+	//VzCore::VoxelBlockEntity.render();
 
-	VzCore::VoxelBlockEntity.render();
+	VzCore::Polygonizer.render();
+
+
 }
 void destroy_dummy() {
 	//VzCore::Cube.destroy();
 	
-	VzCore::SquareMatrixEntity.destroy();
-	VzCore::PointMatrixEntity.destroy();
-
-	VzCore::VoxelBlockEntity.destroy();
+	//VzCore::SquareMatrixEntity.destroy();
+	//VzCore::PointMatrixEntity.destroy();
+	//VzCore::VoxelBlockEntity.destroy();
+	
+	VzCore::Polygonizer.deinit();
 }

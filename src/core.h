@@ -109,4 +109,6 @@ public:
 	static VzVoxelBlockEntity VoxelBlockEntity;
 	static VzSquareMatrixEntity SquareMatrixEntity;
 	static VzPointMatrixEntity PointMatrixEntity;
+
+	static VzPolygonizer Polygonizer;
 };

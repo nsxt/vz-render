@@ -20,3 +20,5 @@ VzUI VzCore::UI;
 VzVoxelBlockEntity VzCore::VoxelBlockEntity;
 VzSquareMatrixEntity VzCore::SquareMatrixEntity;
 VzPointMatrixEntity VzCore::PointMatrixEntity;
+
+VzPolygonizer VzCore::Polygonizer;

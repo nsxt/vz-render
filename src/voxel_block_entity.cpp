@@ -73,15 +73,6 @@ void VzVoxelBlockEntity::_init_shader() {
 	_shader = std::make_unique<VzShader>(vsFilePath.c_str(), fsFilePath.c_str());
 }
 
-float vertices[] = {
-	1.0f,  0.0f, 0.0f,
-	0.0f,  1.0f, 0.0f,
-	0.0f,  0.0f, 1.0f,
-};
-unsigned int indices[] = {  // note that we start from 0!
-	0, 1, 2,  // first Triangle	
-};
-
 void VzVoxelBlockEntity::_init_geometry() {
 	const unsigned blockVerticesSize = _voxel->get_block_vertices_size();
 	const unsigned blockIndicesSize = _voxel->get_block_indices_size();
