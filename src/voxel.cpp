@@ -51,7 +51,7 @@ void VzVoxel::create_block(const int& blockId) {
 
 
 	// case #Temp
-	block.Density[1] = -1;
+	//block.Density[1] = -1;
 
 	// case #1
 	//block.Density[0] = -1;
@@ -61,8 +61,8 @@ void VzVoxel::create_block(const int& blockId) {
 	//block.Density[BLOCK_EXTENT + 1] = -1;
 
 	// case #3
-	//block.Density[0] = -1;
-	//block.Density[1] = -1;
+	block.Density[0] = -1;
+	block.Density[1] = -1;
 
 	// case #4
 	//block.Density[0] = -1;
@@ -193,9 +193,9 @@ void VzVoxel::polygonize_block() {
 				if (isTrivial)
 					continue;
 
-				const unsigned regCellClass = VzVoxelRegularTable::regularCellClass[caseCode];
-				const VzVoxelRegularTable::RegularCellData regCellData = VzVoxelRegularTable::regularCellData[regCellClass];
-				const unsigned short* regVertexData = VzVoxelRegularTable::regularVertexData[caseCode];
+				const unsigned regCellClass = transvoxel::regularCellClass[caseCode];
+				const transvoxel::RegularCellData regCellData = transvoxel::regularCellData[regCellClass];
+				const unsigned short* regVertexData = transvoxel::regularVertexData[caseCode];
 
 				auto regVertSize = regCellData.get_vertex_count();
 				for (long curRegVertCount = 0; curRegVertCount < regVertSize; ++curRegVertCount) {

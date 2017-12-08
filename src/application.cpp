@@ -18,11 +18,11 @@ int run_app() {
 
 	while (!glfwWindowShouldClose(VzGlobal::WindowCtx)) {
 		VzCore::Timer.think();
-		glfwPollEvents();		
-		process_input(VzGlobal::WindowCtx);		
+		glfwPollEvents();
+		process_input(VzGlobal::WindowCtx);
 
 		if (VzCore::Timer.one_frame()) {
-			clear_buffer();		
+			clear_buffer();
 			
 			render_ui();
 			render_dummy();
@@ -97,7 +97,7 @@ int deinit_app() {
 
 void clear_buffer() {
 	static const GLfloat one = 1.0f;
-	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::DarkGray));
+	glClearBufferfv(GL_COLOR, 0, glm::value_ptr(VzColor::Black));
 	glClearBufferfv(GL_DEPTH, 0, &one);
 }
 
@@ -169,25 +169,30 @@ void process_input(GLFWwindow* window) {
 void init_dummy() {
 	//VzCore::Cube.create();
 
-	VzCore::SquareMatrixEntity.create();
-	VzCore::VoxelBlockEntity.create();
+	//VzCore::SquareMatrixEntity.create();
+	//VzCore::VoxelBlockEntity.create();
+	//VzCore::PointMatrixEntity.create(VzCore::VoxelBlockEntity.get_block_density(), 16U);
 
-	VzCore::PointMatrixEntity.create(VzCore::VoxelBlockEntity.get_block_density(), 16U);
+	VzCore::Polygonizer.init();
 
 }
 void render_dummy() {
 	//VzCore::Cube.render();	
 	
-	VzCore::SquareMatrixEntity.render();
-	VzCore::PointMatrixEntity.render();
+	//VzCore::SquareMatrixEntity.render();
+	//VzCore::PointMatrixEntity.render();
+	//VzCore::VoxelBlockEntity.render();
 
-	VzCore::VoxelBlockEntity.render();
+	VzCore::Polygonizer.render();
+
+
 }
 void destroy_dummy() {
 	//VzCore::Cube.destroy();
 	
-	VzCore::SquareMatrixEntity.destroy();
-	VzCore::PointMatrixEntity.destroy();
-
-	VzCore::VoxelBlockEntity.destroy();
+	//VzCore::SquareMatrixEntity.destroy();
+	//VzCore::PointMatrixEntity.destroy();
+	//VzCore::VoxelBlockEntity.destroy();
+	
+	VzCore::Polygonizer.deinit();
 }
