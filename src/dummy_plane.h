@@ -1,11 +1,6 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-
-class VzShader;
-
-class VzPlane {
+class VzDummyPlane {
 public:
 	const static float Vertices[];
 	const static unsigned int Indices[];
@@ -15,9 +10,9 @@ public:
 	glm::vec3 Orientaion;
 
 public:
-	VzPlane() {};
-	VzPlane(glm::vec3 pos);
-	~VzPlane();
+	VzDummyPlane() = default;
+	VzDummyPlane(glm::vec3 pos);
+	virtual ~VzDummyPlane() = default;
 
 	void create();
 	void render();

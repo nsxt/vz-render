@@ -1,14 +1,9 @@
-#include "plane.h"
-#include "shader.h"
-#include "file.h"
+#include "core.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-#include <string>
-#include <iostream>
-
-const float VzPlane::Vertices[] = {
+const float VzDummyPlane::Vertices[] = {
 	// positions         // colors          // texture coords
 	0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
 	0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
@@ -16,18 +11,15 @@ const float VzPlane::Vertices[] = {
 	-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
 };
 
-const unsigned int VzPlane::Indices[] = {
+const unsigned int VzDummyPlane::Indices[] = {
 	0, 1, 3, // first triangle
 	1, 2, 3  // second triangle
 };
 
-VzPlane::VzPlane(glm::vec3 pos) : Position(pos), _shader(nullptr) {
+VzDummyPlane::VzDummyPlane(glm::vec3 pos) : Position(pos), _shader(nullptr) {
 }
 
-VzPlane::~VzPlane() {
-}
-
-void VzPlane::destroy() {
+void VzDummyPlane::destroy() {
 	glDeleteVertexArrays(1, &_vao);
 	glDeleteBuffers(1, &_vbo);
 	glDeleteBuffers(1, &_ebo);
@@ -37,13 +29,13 @@ void VzPlane::destroy() {
 	delete _shader;
 }
 
-void VzPlane::create() {
+void VzDummyPlane::create() {
 	_init_shader_obj();
 	_init_vertex_obj();
 	_init_texture_obj();
 }
 
-void VzPlane::render() {
+void VzDummyPlane::render() {
 	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _texture1);
@@ -57,7 +49,7 @@ void VzPlane::render() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
-void VzPlane::_init_shader_obj() {
+void VzDummyPlane::_init_shader_obj() {
 	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/plane.vert");
 	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/plane.frag");
 	if (vs_file_path.empty() || fs_file_path.empty()) {
@@ -68,7 +60,7 @@ void VzPlane::_init_shader_obj() {
 	_shader = new VzShader(vs_file_path.c_str(), fs_file_path.c_str());
 }
 
-void VzPlane::_init_vertex_obj() {
+void VzDummyPlane::_init_vertex_obj() {
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);
 	glGenBuffers(1, &_ebo);
@@ -94,7 +86,7 @@ void VzPlane::_init_vertex_obj() {
 	glEnableVertexAttribArray(2);
 }
 
-void VzPlane::_init_texture_obj() {
+void VzDummyPlane::_init_texture_obj() {
 	//----------------------------------------------
 	// texture 1
 	//

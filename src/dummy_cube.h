@@ -1,6 +1,6 @@
 #pragma once
 
-class VzCube {
+class VzDummyCube {
 public:
 	const static float Vertices[];	
 
@@ -13,9 +13,9 @@ public:
 	glm::mat4 ModelMatrix;
 
 public:
-	VzCube() {}
-	VzCube(glm::vec3 pos);
-	~VzCube();
+	VzDummyCube() = default;
+	VzDummyCube(glm::vec3 pos);
+	virtual ~VzDummyCube();
 
 	void create();
 	void render();

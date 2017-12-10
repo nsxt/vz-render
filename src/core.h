@@ -39,8 +39,8 @@
 #include "font.h"
 #include "ui.h"
 
-#include "plane.h"
-#include "cube.h"
+#include "dummy_plane.h"
+#include "dummy_cube.h"
 
 #include "voxel_regular_table.h"
 #include "voxel.h"
@@ -50,6 +50,7 @@
 #include "point_matrix_entity.h"
 
 // New Classes for re-factoring
+#include "cube_renderer.h"
 #include "polygonizer.h"
 
 //////////////////////////////////////////////////////
@@ -101,10 +102,11 @@ public:
 	static VzTimer Timer;
 	static VzCamera Camera;
 	static VzFont Font;
-	static VzColor Color;
-	static VzPlane Plane;
-	static VzCube Cube;
+	static VzColor Color;	
 	static VzUI UI;
+
+	static VzDummyPlane DummyPlane;
+	static VzDummyCube DummyCube;
 		
 	static VzVoxelBlockEntity VoxelBlockEntity;
 	static VzSquareMatrixEntity SquareMatrixEntity;

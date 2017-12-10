@@ -2,7 +2,7 @@
 #include <stb/stb_image.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-const float VzCube::Vertices[] = {
+const float VzDummyCube::Vertices[] = {
 	// positions			// texture coords
 	-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,
 	0.5f, -0.5f, -0.5f,		1.0f, 0.0f,
@@ -47,13 +47,13 @@ const float VzCube::Vertices[] = {
 	-0.5f,  0.5f, -0.5f,	0.0f, 1.0f
 };
 
-VzCube::VzCube(glm::vec3 pos) :	Position(pos), _shader(nullptr) {
+VzDummyCube::VzDummyCube(glm::vec3 pos) :	Position(pos), _shader(nullptr) {
 }
 
-VzCube::~VzCube() {
+VzDummyCube::~VzDummyCube() {
 }
 
-void VzCube::destroy() {
+void VzDummyCube::destroy() {
 	glDeleteVertexArrays(1, &_vao);
 	glDeleteBuffers(1, &_vbo);	
 	glDeleteTextures(1, &_texture1);
@@ -62,7 +62,7 @@ void VzCube::destroy() {
 	delete _shader;
 }
 
-void VzCube::create() {
+void VzDummyCube::create() {
 	_init_shader_obj();
 	_init_vertex_obj();
 	_init_texture_obj();
@@ -71,12 +71,12 @@ void VzCube::create() {
 	ModelMatrix = glm::translate(ModelMatrix, Position);
 }
 
-void VzCube::think() {
+void VzDummyCube::think() {
 	ProjectionMatrix = VzCore::Camera.get_projection_matrix();
 	ViewMatrix = VzCore::Camera.get_view_matrix();
 }
 
-void VzCube::render() {
+void VzDummyCube::render() {
 
 	think();
 	
@@ -95,7 +95,7 @@ void VzCube::render() {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void VzCube::_init_shader_obj() {
+void VzDummyCube::_init_shader_obj() {
 	auto vs_file_path = VzFileSystem::get_path("/resource/shaders/cube.vert");
 	auto fs_file_path = VzFileSystem::get_path("/resource/shaders/cube.frag");
 	if (vs_file_path.empty() || fs_file_path.empty()) {
@@ -106,7 +106,7 @@ void VzCube::_init_shader_obj() {
 	_shader = new VzShader(vs_file_path.c_str(), fs_file_path.c_str());
 }
 
-void VzCube::_init_vertex_obj() {
+void VzDummyCube::_init_vertex_obj() {
 	glGenVertexArrays(1, &_vao);
 	glGenBuffers(1, &_vbo);	
 
@@ -124,7 +124,7 @@ void VzCube::_init_vertex_obj() {
 	glEnableVertexAttribArray(1);
 }
 
-void VzCube::_init_texture_obj() {
+void VzDummyCube::_init_texture_obj() {
 	//----------------------------------------------
 	// texture 1
 	//
