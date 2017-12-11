@@ -134,7 +134,7 @@
     <ClCompile Include="..\src\console.cpp" />
     <ClCompile Include="..\src\core.cpp" />
     <ClCompile Include="..\src\dummy_cube.cpp" />
-    <ClCompile Include="..\src\cube_renderer.cpp" />
+    <ClCompile Include="..\src\cube_entity.cpp" />
     <ClCompile Include="..\src\font.cpp" />
     <ClCompile Include="..\src\global.cpp" />
     <ClCompile Include="..\src\dummy_plane.cpp" />
@@ -153,7 +153,7 @@
     <ClInclude Include="..\src\color.h" />
     <ClInclude Include="..\src\core.h" />
     <ClInclude Include="..\src\dummy_cube.h" />
-    <ClInclude Include="..\src\cube_renderer.h" />
+    <ClInclude Include="..\src\cube_entity.h" />
     <ClInclude Include="..\src\font.h" />
     <ClInclude Include="..\src\global.h" />
     <ClInclude Include="..\src\dummy_plane.h" />

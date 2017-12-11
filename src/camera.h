@@ -45,7 +45,7 @@ public:
 	VzCamera() :
 		Position(glm::vec3(0.0f, 0.0f, 0.0f)),
 		Target(glm::vec3(0.0f, 0.0f, -1.0f)),
-		Up(glm::vec3(0.0f, 1.0f, 0.0f)),
+		Up(glm::vec3(0.0f, 0.0f, 0.0f)),
 		WorldUp(glm::vec3(0.0f, 1.0f, 0.0f)),
 		ScreenWidth(0), ScreenHeight(0),
 		Yaw(YAW), Pitch(PITCH),

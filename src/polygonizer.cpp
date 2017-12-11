@@ -41,6 +41,8 @@ void VzPolygonizer::init()
 
 	// init model matrix
 	model_mat = glm::translate(model_mat, glm::vec3(0.0f));
+
+	cube.init();
 }
 
 void VzPolygonizer::render()
@@ -61,6 +63,8 @@ void VzPolygonizer::render()
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glLineWidth((GLfloat)1.0f);
+
+	cube.render();
 }
 
 void VzPolygonizer::deinit()
@@ -68,6 +72,8 @@ void VzPolygonizer::deinit()
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ebo);
+
+	cube.deinit();
 }
 
 // todo : 기준 좌표계 up:z / right:x / forward:y

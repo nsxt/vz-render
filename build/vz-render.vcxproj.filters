@@ -124,14 +124,14 @@
     <ClCompile Include="..\src\polygonizer.cpp">
       <Filter>sources\voxel</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cube_renderer.cpp">
-      <Filter>sources\voxel</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\dummy_cube.cpp">
       <Filter>sources\dummy\cube</Filter>
     </ClCompile>
     <ClCompile Include="..\src\dummy_plane.cpp">
       <Filter>sources\dummy\plane</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cube_entity.cpp">
+      <Filter>sources\voxel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,14 +180,14 @@
     <ClInclude Include="..\src\polygonizer.h">
       <Filter>sources\voxel</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\cube_renderer.h">
-      <Filter>sources\voxel</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\dummy_cube.h">
       <Filter>sources\dummy\cube</Filter>
     </ClInclude>
     <ClInclude Include="..\src\dummy_plane.h">
       <Filter>sources\dummy\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cube_entity.h">
+      <Filter>sources\voxel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

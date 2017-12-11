@@ -39,6 +39,7 @@ protected:
 private:
 	VzCell cell_1;
 	VzCornerValue corner_value_1;
+	VzCubeEntity cube;
 	
 	std::unique_ptr<VzShader> shader;
 	GLuint vbo;

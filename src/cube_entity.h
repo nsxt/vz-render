@@ -6,19 +6,19 @@ struct VzCubeCreateInfo {
 	float len_weight;
 };
 
-class VzCubeRenderer {
+class VzCubeEntity {
 public:
 	// ctor & dtor
-	VzCubeRenderer() = default;
-	virtual ~VzCubeRenderer() = default;
+	VzCubeEntity() = default;
+	virtual ~VzCubeEntity() = default;
 
 	// move ctor & assign
-	VzCubeRenderer(VzCubeRenderer&&) = default;
-	VzCubeRenderer& operator=(VzCubeRenderer&&) = default;
+	VzCubeEntity(VzCubeEntity&&) = default;
+	VzCubeEntity& operator=(VzCubeEntity&&) = default;
 
 	// copy ctor & assign
-	VzCubeRenderer(const VzCubeRenderer&) = default;
-	VzCubeRenderer& operator=(const VzCubeRenderer&) = default;
+	VzCubeEntity(const VzCubeEntity&) = default;
+	VzCubeEntity& operator=(const VzCubeEntity&) = default;
 
 	void init();
 	void render();
@@ -30,6 +30,10 @@ protected: // unchecked function for use by derived class implementations
 
 
 private: // implementation details
+	glm::mat4 model_matrix;
+	glm::mat4 view_matrix;
+	glm::mat4 projection_matrix;
+
 	GLuint vao;
 	GLuint vbo;
 	GLuint ebo;

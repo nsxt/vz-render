@@ -50,7 +50,7 @@
 #include "point_matrix_entity.h"
 
 // New Classes for re-factoring
-#include "cube_renderer.h"
+#include "cube_entity.h"
 #include "polygonizer.h"
 
 //////////////////////////////////////////////////////
