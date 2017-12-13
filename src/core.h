@@ -34,7 +34,6 @@
 #include "timer.h"
 #include "file.h"
 #include "shader.h"
-#include "camera.h"
 #include "color.h"
 #include "font.h"
 #include "ui.h"
@@ -100,7 +99,6 @@ void print_vendor_info();
 class VzCore {
 public:
 	static VzTimer Timer;
-	static VzCamera Camera;
 	static VzFont Font;
 	static VzColor Color;	
 	static VzUI UI;

@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "core.h"
 
-class VzCamera {
+class VzCameraOld {
 public:
 	enum Camera_Movement { FORWARD, BACKWARD, LEFT, RIGHT };
 	const float YAW = -90.0f;
@@ -42,7 +42,7 @@ public:
 	float Zoom;
 
 public:
-	VzCamera() :
+	VzCameraOld() :
 		Position(glm::vec3(0.0f, 0.0f, 0.0f)),
 		Target(glm::vec3(0.0f, 0.0f, -1.0f)),
 		Up(glm::vec3(0.0f, 0.0f, 0.0f)),

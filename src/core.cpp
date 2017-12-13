@@ -10,7 +10,6 @@
 #include "core.h"
 
 VzTimer VzCore::Timer;
-VzCamera VzCore::Camera;
 VzColor VzCore::Color;
 VzFont VzCore::Font;
 VzDummyPlane VzCore::DummyPlane(glm::vec3(0.0f, 0.0f, 0.0f));
