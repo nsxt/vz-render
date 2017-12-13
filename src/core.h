@@ -37,6 +37,7 @@
 #include "color.h"
 #include "font.h"
 #include "ui.h"
+#include "camera.h"
 
 #include "dummy_plane.h"
 #include "dummy_cube.h"

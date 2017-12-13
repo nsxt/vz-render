@@ -32,9 +32,6 @@
     <Filter Include="sources\system">
       <UniqueIdentifier>{ba7af98e-bd40-4ee3-ad78-7714479fd5c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\system\camera">
-      <UniqueIdentifier>{7befad4c-dc6d-4fb6-88eb-a8ed03635fe4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\system\color">
       <UniqueIdentifier>{9effc825-df45-4202-9bc6-ed435a4f8d9e}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,9 @@
     </Filter>
     <Filter Include="sources\transvoxel_old\square matrix">
       <UniqueIdentifier>{514cc7f0-18ca-427b-9026-fea020c222bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\system\camera_old">
+      <UniqueIdentifier>{7befad4c-dc6d-4fb6-88eb-a8ed03635fe4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +133,9 @@
     <ClCompile Include="..\src\cube_entity.cpp">
       <Filter>sources\voxel</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\camera.cpp">
+      <Filter>sources\voxel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\shader.h">
@@ -140,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="..\src\file.h">
       <Filter>sources\system\file</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\camera.h">
-      <Filter>sources\system\camera</Filter>
     </ClInclude>
     <ClInclude Include="..\src\core.h">
       <Filter>sources</Filter>
@@ -187,6 +187,12 @@
       <Filter>sources\dummy\plane</Filter>
     </ClInclude>
     <ClInclude Include="..\src\cube_entity.h">
+      <Filter>sources\voxel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\camera_old.h">
+      <Filter>sources\system\camera_old</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\camera.h">
       <Filter>sources\voxel</Filter>
     </ClInclude>
   </ItemGroup>

@@ -130,6 +130,7 @@
     <ClCompile Include="..\shared\src\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\shared\src\imgui\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="..\src\application.cpp" />
+    <ClCompile Include="..\src\camera.cpp" />
     <ClCompile Include="..\src\color.cpp" />
     <ClCompile Include="..\src\console.cpp" />
     <ClCompile Include="..\src\core.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\camera.h" />
+    <ClInclude Include="..\src\camera_old.h" />
     <ClInclude Include="..\src\color.h" />
     <ClInclude Include="..\src\core.h" />
     <ClInclude Include="..\src\dummy_cube.h" />
