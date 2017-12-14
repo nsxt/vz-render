@@ -15,20 +15,17 @@ enum class VzCameraDirection {
 
 class VzCamera {
 public:
-	VzCamera();
-	virtual ~VzCamera();
+	VzCamera() = default;
+	virtual ~VzCamera() = default;
 
 	void update();
-
-	void reset();
-	
-	void move();
+		
+	void move(VzCameraDirection dir);
+	void move_2d(int x, int y);
 
 	void change_pitch(float degrees);
 	void change_heading(float degrees);
-
-	void move_2d(int x, int y);
-
+	
 	void set_mode(VzCameraType mode);
 	void set_position(glm::vec3 pos);
 	void set_lookat(glm::vec3 pos);
@@ -42,34 +39,34 @@ public:
 protected:
 
 private:
-	glm::mat4 projection;
-	glm::mat4 view;
-	glm::mat4 model;
-	glm::mat4 MVP;
+	glm::mat4 projection {1.0f};
+	glm::mat4 view {1.0f};
+	glm::mat4 model {1.0f};
+	glm::mat4 MVP {1.0f};
 
-	glm::vec3 camera_position;
-	glm::vec3 camera_position_delta;
-	glm::vec3 camera_look_at;
-	glm::vec3 camera_direction;
-	glm::vec3 camera_up;
+	glm::vec3 camera_position {0.0f};
+	glm::vec3 camera_position_delta {0.0f};
+	glm::vec3 camera_look_at {0.0f};
+	glm::vec3 camera_direction {0.0f};
+	glm::vec3 camera_up {0.0f, 0.0f, 1.0f};
 
 	VzCameraType camera_mode { VzCameraType::FREE };
 
-	int viewport_x;
-	int viewport_y;
+	int viewport_x {0};
+	int viewport_y {0};
 
-	int window_width;
-	int window_height;
+	int window_width {1280};
+	int window_height {720};
 
-	double aspect;
-	double field_of_view;
-	double near_clip;
-	double far_clip;
+	float aspect {0.0f};
+	float field_of_view {45.0f};
+	float near_clip {0.1f};
+	float far_clip {100.0f};
 
-	float camera_scale;
-	float camera_heading;
-	float cameara_pitch;
+	float camera_scale {0.5f};
+	float camera_heading {0.0f};
+	float camera_pitch {0.0f};
 
-	float max_pitch_rate;
-	float max_heading_rate;
+	float max_pitch_rate {5.0f};
+	float max_heading_rate {5.0f};
 };
