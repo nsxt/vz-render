@@ -10,7 +10,7 @@
 #pragma once
 
 #define NOMINMAX
-#define GLM_FORCE_LEFT_HANDED
+#define GLM_FORCE_RIGHT_HANDED
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -91,6 +91,24 @@ void unbind_console();
 void stream_test();
 void glm_test();
 void print_vendor_info();
+
+//////////////////////////////////////////////////////
+//
+//	Helper functions
+//
+
+namespace VzUtil 
+{
+
+static inline int    min(int lhs, int rhs) { return lhs < rhs ? lhs : rhs; }
+static inline int    max(int lhs, int rhs) { return lhs >= rhs ? lhs : rhs; }
+static inline float  min(float lhs, float rhs) { return lhs < rhs ? lhs : rhs; }
+static inline float  max(float lhs, float rhs) { return lhs >= rhs ? lhs : rhs; }
+static inline int    clamp(int v, int mn, int mx) { return (v < mn) ? mn : (v > mx) ? mx : v; }
+static inline float  clamp(float v, float mn, float mx) { return (v < mn) ? mn : (v > mx) ? mx : v; }
+
+}
+
 
 //////////////////////////////////////////////////////
 //

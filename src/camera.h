@@ -10,7 +10,7 @@ enum class VzCameraType {
 }
 ;
 enum class VzCameraDirection {
-	UP, DOWN, LEFT, RIGHT, FORWARD, BACK
+	UP, DOWN, LEFT, RIGHT, FORWARD, BACKWARD
 };
 
 class VzCamera {
@@ -21,7 +21,6 @@ public:
 	void update();
 		
 	void move(VzCameraDirection dir);
-	void move_2d(int x, int y);
 
 	void change_pitch(float degrees);
 	void change_heading(float degrees);
@@ -49,8 +48,9 @@ private:
 	glm::vec3 camera_look_at {0.0f};
 	glm::vec3 camera_direction {0.0f};
 	glm::vec3 camera_up {0.0f, 0.0f, 1.0f};
+	glm::vec3 camera_right {0.0f};
 
-	VzCameraType camera_mode { VzCameraType::FREE };
+	VzCameraType camera_type { VzCameraType::FREE };
 
 	int viewport_x {0};
 	int viewport_y {0};
